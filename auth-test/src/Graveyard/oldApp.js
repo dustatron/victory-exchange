@@ -5,16 +5,16 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 // import { useFirestoreConnect, isLoaded } from 'react-redux-firebase';
 
 //Routes
-import SignedIn from './SignedIn';
-import Login from './Login';
+import SignedIn from '../components/SignedIn';
+import Login from '../components/Login';
 import Signup from './Signup';
-import Home from './Home';
+import Home from '../components/Home';
 import { AuthProvider, AuthContext } from './Auth';
 import PrivateRoute from './PrivateRoute';
-import Header from './Header';
-import Dashboard from './Dashboard';
+import Header from '../components/Header';
+import Dashboard from '../components/Dashboard';
 import RequiredAuth from './RequireAuth';
-import Private from './Private';
+import Private from '../components/Private';
 
 //Firebase
 // import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
