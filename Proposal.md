@@ -28,6 +28,7 @@ The users  of this site are primarily individuals who are vegetable gardeners an
  * Redux
  * Firebase Firestore
  * Firebase Auth
+ * FirebaseUI
  * Bootstrap React
  
 
