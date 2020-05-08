@@ -9,25 +9,27 @@ import SignedIn from './SignedIn';
 import Login from './Login';
 import Signup from './Signup';
 import Home from './Home';
-import { AuthProvider } from './Auth';
+import { AuthProvider, AuthContext } from './Auth';
 import PrivateRoute from './PrivateRoute';
 import Header from './Header';
+import Dashboard from './Dashboard';
+import RequiredAuth from './RequireAuth';
 
 //Firebase
 // import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase';
 
-function onAuthStateChange(callback) {
-  return firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      callback({ loggedIn: true });
-      console.log('The user is logged in');
-    } else {
-      callback({ loggedIn: false });
-      console.log('The user is signed out');
-    }
-  });
-}
+// function onAuthStateChange(callback) {
+//   return firebase.auth().onAuthStateChanged((user) => {
+//     if (user) {
+//       callback({ loggedIn: true });
+//       console.log('The user is logged in');
+//     } else {
+//       callback({ loggedIn: false });
+//       console.log('The user is signed out');
+//     }
+//   });
+// }
 
 function App(props) {
   const [ user, setUser ] = useState({ loggedIn: false });
@@ -51,12 +53,12 @@ function App(props) {
   //   // }
   // };
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChange(setUser);
-    return () => {
-      unsubscribe();
-    };
-  }, []);
+  // useEffect(() => {
+  //   const unsubscribe = onAuthStateChange(setUser);
+  //   return () => {
+  //     unsubscribe();
+  //   };
+  // }, []);
 
   // if (isLoaded(auth) && auth.currentUser !== null) {
   //   return <span>User is logged in</span>;
@@ -69,20 +71,27 @@ function App(props) {
   // }
 
   return (
-    <React.Fragment>
-      <AuthProvider>
-        <Header />
-        <Router>
-          <div>
-            <PrivateRoute exact path="/" component={Home} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/signedin" component={SignedIn} />
-            <Route exact path="/signup" component={Signup} />
-          </div>
-        </Router>
-      </AuthProvider>
-    </React.Fragment>
+    <AuthProvider>
+      <Router>
+        <div>
+          <Route path="/home" component={Home} />
+          <Route path="/login" component={Login} />
+          <PrivateRoute path="/dash" component={Dashboard} />
+        </div>
+      </Router>
+    </AuthProvider>
   );
 }
 
 export default App;
+
+// <Router>
+//   {/* <Header /> */}
+//   <Switch>
+//     <Route path="/login" component={Login} />
+//     <Route path="/home" component={Home} />
+//     <RequiredAuth login={user.loggedIn}>
+//       <Route path="/dash" component={Dashboard} />
+//     </RequiredAuth>
+//   </Switch>
+// </Router>
