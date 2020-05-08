@@ -17,15 +17,22 @@ function Login() {
     alignItems: 'center'
   };
 
+  const cardStyle = {
+    marginTop: '3rem'
+  };
+
+  //// Location for redirection after sign up
+  const redirectUrl = '/dashboard';
+
   const firebase = useFirebase();
   const auth = useSelector((state) => state.firebase.auth);
-  const redirectUrl = '/dash';
   const history = useHistory();
+
   return (
     <div>
       <Row>
-        <Col md={{ span: 6, offset: 3 }}>
-          <Card>
+        <Col md={{ span: 10, offset: 1 }}>
+          <Card style={cardStyle}>
             <Card.Header>
               <Card.Title>
                 <h2>Login</h2>
@@ -38,7 +45,7 @@ function Login() {
                 <StyledFirebaseAuth
                   uiConfig={{
                     signInFlow: 'popup',
-                    signInSuccessUrl: '/signedIn',
+                    signInSuccessUrl: '/dashboard',
                     signInOptions: [
                       firebase.auth.GoogleAuthProvider.PROVIDER_ID,
                       firebase.auth.EmailAuthProvider.PROVIDER_ID
