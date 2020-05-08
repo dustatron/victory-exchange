@@ -7,3 +7,5 @@
 1:00 - 3:00 : watch, read tutorials and documentation. running into issues where user auth is coming later than page load so private routes are acting weird or not working. 
 
 3:30 - 4:00 : got private routes to work. now site waits for auth to load before it renders any content. 
+
+4:00 4:38 : cleaned up project and added navbar with working links.
