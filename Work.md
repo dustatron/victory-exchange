@@ -9,3 +9,4 @@
 3:30 - 4:00 : got private routes to work. now site waits for auth to load before it renders any content. 
 
 4:00 4:38 : cleaned up project and added navbar with working links.
+4:30 - 5:00: update loading screen look while page is waiting for firebase to initialize.
