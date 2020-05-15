@@ -6,13 +6,12 @@ import { Card, Spinner, Container, Row, Col } from 'react-bootstrap';
 //Static Routes
 import Login from './Static/Login';
 import Home from './Static/Home';
-import About from './Static/About';
 import Contact from './Static/Contact';
 
 import PrivateRoute from './Layout/PrivateRoute';
 import Layout from './Layout/Layout';
 
-import Dashboard from './User/Dashboard';
+import UserControl from './User/UserControl';
 
 import PodControl from './Pods/PodControl';
 import OffersList from './User/Offers/OffersList';
@@ -50,7 +49,7 @@ function App(props) {
           <Route path="/login" component={Login} />
 
           {/* PRIVATE ROUTE  */}
-          <PrivateRoute path="/dashboard" authenticated={notSignedIt} component={Dashboard} />
+          <PrivateRoute path="/dashboard" authenticated={notSignedIt} component={UserControl} />
           <PrivateRoute path="/findpods" authenticated={notSignedIt} component={PodControl} />
         </Layout>
       </Router>

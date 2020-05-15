@@ -1,19 +1,20 @@
 import React from 'react';
 import firebase from 'firebase';
-import { Button } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
+import OfferList from './Offers/OffersList';
+import OffersMadeByUser from './Offers/OffersMadeByUser';
 
 function Dashboard() {
   return (
-    <div>
-      <h1>Dashbaord</h1>
-      <Button
-        onClick={() => {
-          firebase.auth().signOut();
-        }}
-      >
-        logout
-      </Button>
-    </div>
+    <React.Fragment>
+      <Card>
+        <Card.Body>
+          <h1>Dashbaord</h1>
+          <OfferList />
+          <OffersMadeByUser />
+        </Card.Body>
+      </Card>
+    </React.Fragment>
   );
 }
 

@@ -1,10 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import PodSearch from './PodSearch';
+import PodCreate from './PodCreate';
+import PodDetails from './PodDetails';
 
 function PodsList(props) {
   return (
     <div>
-      <h1> Find a pod to join </h1>
+      <h1> Pod Control </h1>
+      <PodSearch />
+      <PodCreate />
+      <PodDetails />
     </div>
   );
 }
