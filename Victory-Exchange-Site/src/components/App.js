@@ -14,8 +14,8 @@ import Layout from './Layout/Layout';
 
 import Dashboard from './User/Dashboard';
 
-import PodsList from './Pods/PodsList';
-import OffersList from './Offers/OffersList';
+import PodControl from './Pods/PodControl';
+import OffersList from './User/Offers/OffersList';
 
 function App(props) {
   const auth = props.auth;
@@ -43,16 +43,15 @@ function App(props) {
     return (
       <Router>
         <Layout login={notSignedIt}>
-          <Redirect from={'/'} to={'/home'} />
-          <Route path="/home" component={Home} />
+          {/* <Redirect exact from={'/'} to={'/home'} /> */}
+          <Route exact path="/" component={Home} />
+          <Route exact path="/home" component={Home} />
           <Route path="/contact" component={Contact} />
-          <Route path="/about" component={About} />
           <Route path="/login" component={Login} />
 
           {/* PRIVATE ROUTE  */}
           <PrivateRoute path="/dashboard" authenticated={notSignedIt} component={Dashboard} />
-          <PrivateRoute path="/podslist" authenticated={notSignedIt} component={PodsList} />
-          <PrivateRoute path="/postslist" authenticated={notSignedIt} component={OffersList} />
+          <PrivateRoute path="/findpods" authenticated={notSignedIt} component={PodControl} />
         </Layout>
       </Router>
     );

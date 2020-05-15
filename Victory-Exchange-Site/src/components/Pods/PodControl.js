@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 function PodsList(props) {
   return (
     <div>
-      <h1> Pod list</h1>
+      <h1> Find a pod to join </h1>
     </div>
   );
 }
