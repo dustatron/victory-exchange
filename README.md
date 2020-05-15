@@ -40,10 +40,9 @@ Coming soon...
 * User can remove an offer from a Pod
 
   
-## Component diagram / Wireframe
+## Component Diagram / Wireframe
 
-<!-- ![Component Map](src/img/mockup.jpg) -->
-Coming soon...
+![Component Map](/nodeMockUp.jpg)
 ## Installation instructions
 
 <details>

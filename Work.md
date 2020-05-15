@@ -16,3 +16,5 @@
 # Second Friday | May 15
 
 8:00 - 8:40 : reorg files
+8:40 - 9:20 : update styling for navbar and basic page layout.
+9:20 - ? : Design node layout in Draw.io

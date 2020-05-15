@@ -18,7 +18,8 @@ function Login() {
   };
 
   const cardStyle = {
-    marginTop: '3rem'
+    marginTop: '3rem',
+    boxShadow: '0px 8px 10px rgba(0, 0, 0, 0.07)'
   };
 
   //// Location for redirection after sign up
@@ -35,7 +36,7 @@ function Login() {
           <Card style={cardStyle}>
             <Card.Header>
               <Card.Title>
-                <h2>Login</h2>
+                <h2 className="text-center">Login</h2>
               </Card.Title>
             </Card.Header>
             {!isLoaded(auth) ? (
