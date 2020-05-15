@@ -4,14 +4,13 @@ import { Navbar, Nav, Container } from 'react-bootstrap';
 import firebase from 'firebase';
 
 function Header(props) {
-  const navStyle = {
-    background: '#FFFFFF',
-    height: '4rem',
-    boxShadow: '0px 8px 10px rgba(0, 0, 0, 0.05)',
-    marginBottom: '1.6rem'
-  };
+  // const navStyle = {
+  //   // background: '#FFFFFF',
+  //   height: '4rem',
+  //   boxShadow: '0px 8px 10px rgba(0, 0, 0, 0.05)'
+  // };
   return (
-    <Navbar collapseOnSelect expand="lg" style={navStyle} variant="light">
+    <Navbar collapseOnSelect expand="lg" variant="light" bg="light">
       <Container>
         <Navbar.Brand as={Link} to="/Home">
           Victory Exchange
