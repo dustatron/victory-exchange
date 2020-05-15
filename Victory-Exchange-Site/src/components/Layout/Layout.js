@@ -7,11 +7,8 @@ function Layout({ children, login }) {
   return (
     <div className="background">
       <Header auth={login} />
-      <Container>
-        <Row>
-          <Col md={{ span: 8, offset: 2 }}>{children}</Col>
-        </Row>
-      </Container>
+
+      {children}
     </div>
   );
 }

@@ -42,9 +42,9 @@ function App(props) {
     return (
       <Router>
         <Layout login={notSignedIt}>
+          <Route exact path="/home" component={Home} />
           {/* <Redirect exact from={'/'} to={'/home'} /> */}
           <Route exact path="/" component={Home} />
-          <Route exact path="/home" component={Home} />
           <Route path="/contact" component={Contact} />
           <Route path="/login" component={Login} />
 
