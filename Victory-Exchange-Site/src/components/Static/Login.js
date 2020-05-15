@@ -64,7 +64,7 @@ function Login() {
               </Card.Body>
             ) : (
               <div style={loadingBoxStyle} className="text-center">
-                <Spinner animation="border" role="status" size="lg" className="text-center" size="lg" variant="primary">
+                <Spinner animation="border" role="status" size="lg" className="text-center" variant="primary">
                   <span className="sr-only">Loading...</span>
                 </Spinner>
               </div>
