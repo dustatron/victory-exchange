@@ -20,3 +20,5 @@
 8:00 - 8:40 | reorg files
 8:40 - 9:20 | update styling for navbar and basic page layout.
 9:20 - 9:50 | Design node layout in Draw.io
+10:00 - 12:00 | design Home page component in figma
+1:00 - 3:30 | add figma design to Home page component
