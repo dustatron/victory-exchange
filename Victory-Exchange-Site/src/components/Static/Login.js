@@ -4,6 +4,7 @@ import { useFirebase, isLoaded, isEmpty } from 'react-redux-firebase';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import { useHistory } from 'react-router-dom'; // if you use react-router
 // import GoogleButton from 'react-google-button' // optional
+import { Container } from 'react-bootstrap';
 
 import { Spinner, Card, Row, Col } from 'react-bootstrap';
 
@@ -30,7 +31,7 @@ function Login() {
   const history = useHistory();
 
   return (
-    <div>
+    <Container>
       <Row>
         <Col md={{ span: 10, offset: 1 }}>
           <Card style={cardStyle}>
@@ -74,7 +75,7 @@ function Login() {
           </Card>
         </Col>
       </Row>
-    </div>
+    </Container>
   );
 }
 

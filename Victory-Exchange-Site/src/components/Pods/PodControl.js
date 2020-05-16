@@ -3,15 +3,16 @@ import PropTypes from 'prop-types';
 import PodSearch from './PodSearch';
 import PodCreate from './PodCreate';
 import PodDetails from './PodDetails';
+import { Container } from 'react-bootstrap';
 
 function PodsList(props) {
   return (
-    <div>
+    <Container>
       <h1> Pod Control </h1>
       <PodSearch />
       <PodCreate />
       <PodDetails />
-    </div>
+    </Container>
   );
 }
 
