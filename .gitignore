@@ -13,6 +13,7 @@
 
 # production
 /build
+/Victory-Exchange-Site/build
 
 # misc
 .DS_Store
