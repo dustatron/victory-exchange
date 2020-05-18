@@ -22,9 +22,11 @@
 ```javascript
   pod = {
     podId: string,
+    podImg: string,
     title:  string,
     ownerId: userId,
     ownerName: userName,
+    ownerImg: string,
     tagLine: string,
     location: string,
     description: string,

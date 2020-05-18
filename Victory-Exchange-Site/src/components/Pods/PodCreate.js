@@ -13,16 +13,18 @@ function PodCreate() {
 
   function addPodtoFirestore(event) {
     event.preventDefault();
-    const { title, tagLine, location, description } = event.target;
+    const { title, tagLine, location, description, img } = event.target;
     // console.log('user', currentUser);
     const createPod = {
+      createdAt: Date.now(),
       title: title.value,
       tagLine: tagLine.value,
-      location: tagLine.value,
+      location: location.value,
       description: description.value,
       ownerId: currentUser.uid,
       ownerName: currentUser.displayName,
       owerImg: currentUser.photoURL,
+      podImg: img.value,
       users: [ currentUser.uid ]
     };
     podCollection.add(createPod);
@@ -73,7 +75,22 @@ function PodCreate() {
 
           <Form.Group>
             <Form.Label>Description</Form.Label>
-            <Form.Control type="text" name="description" placeholder="Give more details." defaultValue="the street" />
+            <Form.Control
+              type="text"
+              name="description"
+              placeholder="Give more details."
+              defaultValue="We really want people to join us in sharing good food from the street."
+            />
+          </Form.Group>
+
+          <Form.Group>
+            <Form.Label>Pod Image</Form.Label>
+            <Form.Control
+              type="text"
+              name="img"
+              placeholder="An image to so others what this pod is all about."
+              defaultValue="https://images.unsplash.com/photo-1488459716781-31db52582fe9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
+            />
           </Form.Group>
 
           <Button variant="primary" type="submit">
