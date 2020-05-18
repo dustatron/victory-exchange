@@ -28,7 +28,7 @@ function PodsList(props) {
   //////////////////// Click Handlers ////////////////////////
 
   const [ viewState, setViewState ] = useState(0);
-  const [ selectedPodState, setSelectedPodState ] = useState({});
+  const [ selectedPodState, setSelectedPodState ] = useState({}); // retire
   const selectedPod = useSelector((state) => state.selectedPod);
 
   const renderView = (view) => {

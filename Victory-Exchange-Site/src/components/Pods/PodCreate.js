@@ -23,7 +23,7 @@ function PodCreate(props) {
       description: description.value,
       ownerId: currentUser.uid,
       ownerName: currentUser.displayName,
-      owerImg: currentUser.photoURL,
+      ownerImg: currentUser.photoURL,
       podImg: img.value,
       users: [ currentUser.uid ]
     };

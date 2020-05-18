@@ -1,14 +1,42 @@
 import React from 'react';
-import { Card, Form, Button } from 'react-bootstrap';
+import { useSelector, useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 
-function PodEdit() {
+import { Card, Form, Button } from 'react-bootstrap';
+import { useFirestore } from 'react-redux-firebase';
+
+function PodEdit(props) {
+  const selectedPod = useSelector((state) => state.selectedPod);
+  const dispatch = useDispatch();
+  const thisPod = useFirestore();
+
+  function updatePodOnFirestore(event) {
+    event.preventDefault();
+    const { title, tagLine, location, description, img } = event.target;
+    const updatePod = {
+      podId: selectedPod.podId,
+      createdAt: selectedPod.createdAt,
+      title: title.value,
+      tagLine: tagLine.value,
+      location: location.value,
+      description: description.value,
+      ownerId: selectedPod.ownerId,
+      ownerName: selectedPod.ownerName,
+      ownerImg: selectedPod.ownerImg,
+      podImg: img.value,
+      users: [ ...selectedPod.users ]
+    };
+    thisPod.update({ collection: 'pods', doc: selectedPod.podId }, updatePod);
+    dispatch({ type: 'UPDATE_SELECTED', ...updatePod });
+    props.onUpdateClick(0);
+  }
   return (
     <Card>
       <Card.Header>
         <Card.Title>Edit Pod Details</Card.Title>
       </Card.Header>
       <Card.Body>
-        <Form>
+        <Form onSubmit={updatePodOnFirestore}>
           <Form.Group>
             <Form.Label>Pod Title</Form.Label>
             <Form.Control
@@ -16,7 +44,7 @@ function PodEdit() {
               name="title"
               placeholder="Name of your Pod."
               autoComplete="title"
-              defaultValue="Chautauqua street"
+              defaultValue={selectedPod.title}
             />
             <Form.Text className="text-muted">
               The name of your pod should tell others about the location of your pod.
@@ -29,7 +57,7 @@ function PodEdit() {
               type="text"
               name="tagLine"
               placeholder="One sentence about your pod."
-              defaultValue="street lovers"
+              defaultValue={selectedPod.Value}
             />
           </Form.Group>
 
@@ -39,7 +67,7 @@ function PodEdit() {
               type="text"
               name="location"
               placeholder="Where is your pod located?"
-              defaultValue="Kenton and portsmouth"
+              defaultValue={selectedPod.Location}
             />
             <Form.Text className="text-muted">This could be your neighborhood, a street, or your club.</Form.Text>
           </Form.Group>
@@ -50,7 +78,7 @@ function PodEdit() {
               type="text"
               name="description"
               placeholder="Give more details."
-              defaultValue="We really want people to join us in sharing good food from the street."
+              defaultValue={selectedPod.description}
             />
           </Form.Group>
 
@@ -60,17 +88,20 @@ function PodEdit() {
               type="text"
               name="img"
               placeholder="An image to so others what this pod is all about."
-              defaultValue="https://images.unsplash.com/photo-1488459716781-31db52582fe9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
+              defaultValue={selectedPod.podImg}
             />
           </Form.Group>
 
           <Button variant="primary" type="submit">
-            Create
+            Update
           </Button>
         </Form>
       </Card.Body>
     </Card>
   );
 }
+PodEdit.propTypes = {
+  onUpdateClick: PropTypes.func
+};
 
 export default PodEdit;

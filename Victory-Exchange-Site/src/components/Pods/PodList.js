@@ -15,8 +15,8 @@ function PodList(props) {
 
   const dispatch = useDispatch();
 
-  const hanglePodClick = (podObject) => {
-    const action = { type: 'UPDATE_SELECTED', ...podObject };
+  const hanglePodClick = (podObject, podId) => {
+    const action = { type: 'UPDATE_SELECTED', ...podObject, ...{ podId: podId } };
     dispatch(action);
     // props.onPodClick(podObject);
     // console.log('podObject', podObject);
@@ -31,7 +31,7 @@ function PodList(props) {
             style={{ width: '18rem' }}
             key={pod.id}
             onClick={() => {
-              hanglePodClick(pod);
+              hanglePodClick(pod, pod.id);
             }}
           >
             <Card.Img variant="top" src={pod.podImg} />

@@ -25,7 +25,7 @@ function PodDetails(props) {
           />
         );
       case 1:
-        return <PodEdit />;
+        return <PodEdit onUpdateClick={setViewState} />;
       default:
         return (
           <PodItemView
