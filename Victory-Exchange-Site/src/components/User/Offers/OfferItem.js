@@ -3,11 +3,13 @@ import OfferReplies from './OfferReplies';
 import MakeReply from './MakeReply';
 import { Card } from 'react-bootstrap';
 
-function OfferItem() {
+function OfferItem(props) {
   return (
     <Card>
+      <Card.Header>
+        <h4> {props.pod.title} </h4>
+      </Card.Header>
       <Card.Body>
-        <h4> Offer Item </h4>
         <OfferReplies />
         <MakeReply />
       </Card.Body>

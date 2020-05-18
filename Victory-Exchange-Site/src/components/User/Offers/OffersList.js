@@ -6,7 +6,10 @@ function OffersList(props) {
   return (
     <div>
       <h1> Offers List</h1>
-      <OfferItem />
+      {props.pods.map(pod => {
+        return <OfferItem pod={pod} />;
+      })}
+
       <hr />
     </div>
   );
