@@ -40,7 +40,7 @@ function PodsList(props) {
       case 2:
         return <PodCreate updateViewState={setViewState} updateSelectedPodState={setSelectedPodState} />;
       case 3:
-        return <PodDetails thisPod={selectedPodState} />;
+        return <PodDetails thisPod={selectedPodState} updateViewState={setViewState} />;
       default:
         return <PodList onPodClick={setSelectedPodState} />;
     }
@@ -52,13 +52,7 @@ function PodsList(props) {
         <LeftMenu>
           <PodMenu onMenuClick={setViewState} />
         </LeftMenu>
-        <RightBody>
-          {renderView(viewState)}
-          {/* <PodList />
-          <PodSearch />
-          <PodCreate />
-          <PodDetails /> */}
-        </RightBody>
+        <RightBody>{renderView(viewState)}</RightBody>
       </GridLayout>
     </Container>
   );

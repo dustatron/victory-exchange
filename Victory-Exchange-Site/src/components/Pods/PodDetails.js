@@ -15,34 +15,19 @@ function PodDetails(props) {
   const renderView = (view) => {
     switch (viewState) {
       case 0:
-        return (
-          <PodItemView
-            title={selectedPod.title}
-            tagLine={selectedPod.tagLine}
-            podImg={selectedPod.podImg}
-            description={selectedPod.description}
-            onEditClick={setViewState}
-          />
-        );
+        return <PodItemView onEditClick={setViewState} withViewState={props.updateViewState} />;
       case 1:
         return <PodEdit onUpdateClick={setViewState} />;
       default:
-        return (
-          <PodItemView
-            title={selectedPod.title}
-            tagLine={selectedPod.tagLine}
-            podImg={selectedPod.podImg}
-            description={selectedPod.description}
-            onEditClick={setViewState}
-          />
-        );
+        return <PodItemView onEditClick={setViewState} withViewState={props.updateViewState} />;
     }
   };
-  return <div> {renderView(viewState)}</div>;
+  return <div> {selectedPod === '' ? <p> no selected pod </p> : renderView(viewState)}</div>;
 }
 
 PodDetails.propTypes = {
-  thisPod: PropTypes.func
+  thisPod: PropTypes.func,
+  updateViewState: PropTypes.func
 };
 
 export default PodDetails;

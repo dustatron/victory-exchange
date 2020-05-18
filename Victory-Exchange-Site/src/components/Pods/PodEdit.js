@@ -28,7 +28,6 @@ function PodEdit(props) {
     };
     thisPod.update({ collection: 'pods', doc: selectedPod.podId }, updatePod);
     dispatch({ type: 'UPDATE_SELECTED', ...updatePod });
-    props.onUpdateClick(0);
   }
   return (
     <Card>
@@ -39,13 +38,7 @@ function PodEdit(props) {
         <Form onSubmit={updatePodOnFirestore}>
           <Form.Group>
             <Form.Label>Pod Title</Form.Label>
-            <Form.Control
-              type="text"
-              name="title"
-              placeholder="Name of your Pod."
-              autoComplete="title"
-              defaultValue={selectedPod.title}
-            />
+            <Form.Control type="text" name="title" autoComplete="title" defaultValue={selectedPod.title} />
             <Form.Text className="text-muted">
               The name of your pod should tell others about the location of your pod.
             </Form.Text>
@@ -53,43 +46,23 @@ function PodEdit(props) {
 
           <Form.Group>
             <Form.Label>Tag Line</Form.Label>
-            <Form.Control
-              type="text"
-              name="tagLine"
-              placeholder="One sentence about your pod."
-              defaultValue={selectedPod.Value}
-            />
+            <Form.Control type="text" name="tagLine" defaultValue={selectedPod.tagLine} />
           </Form.Group>
 
           <Form.Group>
             <Form.Label>Location</Form.Label>
-            <Form.Control
-              type="text"
-              name="location"
-              placeholder="Where is your pod located?"
-              defaultValue={selectedPod.Location}
-            />
+            <Form.Control type="text" name="location" defaultValue={selectedPod.location} />
             <Form.Text className="text-muted">This could be your neighborhood, a street, or your club.</Form.Text>
           </Form.Group>
 
           <Form.Group>
             <Form.Label>Description</Form.Label>
-            <Form.Control
-              type="text"
-              name="description"
-              placeholder="Give more details."
-              defaultValue={selectedPod.description}
-            />
+            <Form.Control type="text" name="description" defaultValue={selectedPod.description} />
           </Form.Group>
 
           <Form.Group>
             <Form.Label>Pod Image</Form.Label>
-            <Form.Control
-              type="text"
-              name="img"
-              placeholder="An image to so others what this pod is all about."
-              defaultValue={selectedPod.podImg}
-            />
+            <Form.Control type="text" name="img" defaultValue={selectedPod.podImg} />
           </Form.Group>
 
           <Button variant="primary" type="submit">
@@ -101,7 +74,8 @@ function PodEdit(props) {
   );
 }
 PodEdit.propTypes = {
-  onUpdateClick: PropTypes.func
+  onUpdateClick: PropTypes.func,
+  withViewStat: PropTypes.func
 };
 
 export default PodEdit;

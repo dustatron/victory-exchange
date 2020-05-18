@@ -1,14 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
-import { useFirestoreConnect, isLoaded } from 'react-redux-firebase';
+//Style
+import styled from 'styled-components';
+import { Card, ListGroup, ListGroupItem, Spinner, Col, Row } from 'react-bootstrap';
 
+//Datat
+import { useFirestoreConnect, isLoaded } from 'react-redux-firebase';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 
 function PodList(props) {
   useFirestoreConnect([ { collection: 'pods' } ]);
+
+  const CenterItem = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20vh;
+  `;
 
   const podsList = useSelector((state) => state.firestore.ordered.pods);
   const selectedPod = useSelector((state) => state.selectedPod);
@@ -28,27 +38,39 @@ function PodList(props) {
       return podsList.map((pod) => {
         return (
           <Card
-            style={{ width: '18rem' }}
+            style={{ cursor: 'pointer' }}
             key={pod.id}
             onClick={() => {
               hanglePodClick(pod, pod.id);
             }}
           >
-            <Card.Img variant="top" src={pod.podImg} />
-            <Card.Body>
+            <Card.Header>
               <Card.Title>{pod.title}</Card.Title>
               <Card.Subtitle className="mb-2 text-muted">{pod.tagLine}</Card.Subtitle>
-              <Card.Text>{pod.description}</Card.Text>
-              <ListGroup className="list-group-flush">
-                <ListGroupItem>Location: {pod.location}</ListGroupItem>
-                <ListGroupItem>Created By: {pod.ownerName}</ListGroupItem>
-                <ListGroupItem>Users: {pod.users.length}</ListGroupItem>
-                <ListGroupItem>Created on: {new Date(pod.createdAt).toLocaleDateString()}</ListGroupItem>
-              </ListGroup>
+            </Card.Header>
+            <Card.Body>
+              <Row>
+                <Col sm={3}>
+                  <Card.Img variant="top" src={pod.podImg} />
+                </Col>
+                <Col>
+                  <Card.Text>{pod.description}</Card.Text>
+                  <ListGroup className="list-group-flush">
+                    <ListGroupItem>Location: {pod.location}</ListGroupItem>
+                    <ListGroupItem>Created on: {new Date(pod.createdAt).toLocaleDateString()}</ListGroupItem>
+                  </ListGroup>
+                </Col>
+              </Row>
             </Card.Body>
           </Card>
         );
       });
+    } else {
+      return (
+        <CenterItem>
+          <Spinner animation="border" />
+        </CenterItem>
+      );
     }
   };
   return (

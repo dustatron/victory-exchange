@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 import { Form, Button, Card } from 'react-bootstrap';
 
 import { useFirestore } from 'react-redux-firebase';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 function PodCreate(props) {
   const podCollection = useFirestore().collection('pods');
 
   // useFirestoreConnect([ { collection: 'users' } ]);
   const currentUser = useSelector((state) => state.firebase.auth);
+  const selectedPod = useSelector((state) => state.selectedPod);
+  const dispatch = useDispatch();
 
   function addPodtoFirestore(event) {
     event.preventDefault();
@@ -28,7 +30,7 @@ function PodCreate(props) {
       users: [ currentUser.uid ]
     };
     podCollection.add(createPod);
-    props.updateSelectedPodState(createPod);
+    dispatch({ type: 'UPDATE_SELECTED', ...createPod });
     props.updateViewState(3);
   }
 
