@@ -1,11 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Form, Button, Card } from 'react-bootstrap';
 
-import { useFirestore, useFirestoreConnect } from 'react-redux-firebase';
-import firebase from 'firebase/app';
+import { useFirestore } from 'react-redux-firebase';
 import { useSelector } from 'react-redux';
 
-function PodCreate() {
+function PodCreate(props) {
   const podCollection = useFirestore().collection('pods');
 
   // useFirestoreConnect([ { collection: 'users' } ]);
@@ -14,7 +14,7 @@ function PodCreate() {
   function addPodtoFirestore(event) {
     event.preventDefault();
     const { title, tagLine, location, description, img } = event.target;
-    // console.log('user', currentUser);
+
     const createPod = {
       createdAt: Date.now(),
       title: title.value,
@@ -28,7 +28,8 @@ function PodCreate() {
       users: [ currentUser.uid ]
     };
     podCollection.add(createPod);
-    console.log('pod created', createPod);
+    props.updateSelectedPodState(createPod);
+    props.updateViewState(3);
   }
 
   return (
@@ -101,5 +102,10 @@ function PodCreate() {
     </Card>
   );
 }
+
+PodCreate.propTypes = {
+  updateViewState: PropTypes.func,
+  updateSelectedPodState: PropTypes.func
+};
 
 export default PodCreate;

@@ -1,17 +1,39 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { useFirestoreConnect, isLoaded } from 'react-redux-firebase';
-import { useSelector } from 'react-redux';
 
-function PodList() {
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+
+function PodList(props) {
   useFirestoreConnect([ { collection: 'pods' } ]);
+
   const podsList = useSelector((state) => state.firestore.ordered.pods);
+  const selectedPod = useSelector((state) => state.selectedPod);
+
+  const dispatch = useDispatch();
+
+  const hanglePodClick = (podObject) => {
+    const action = { type: 'UPDATE_SELECTED', ...podObject };
+    dispatch(action);
+    // props.onPodClick(podObject);
+    // console.log('podObject', podObject);
+    props.upDateViewState(3);
+  };
+
   const printPods = () => {
     if (isLoaded(podsList)) {
       return podsList.map((pod) => {
         return (
-          <Card style={{ width: '18rem' }} key={pod.id}>
+          <Card
+            style={{ width: '18rem' }}
+            key={pod.id}
+            onClick={() => {
+              hanglePodClick(pod);
+            }}
+          >
             <Card.Img variant="top" src={pod.podImg} />
             <Card.Body>
               <Card.Title>{pod.title}</Card.Title>
@@ -39,4 +61,8 @@ function PodList() {
   );
 }
 
+PodList.propTypes = {
+  onPodClick: PropTypes.func,
+  upDateViewState: PropTypes.func
+};
 export default PodList;

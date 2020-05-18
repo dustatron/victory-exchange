@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 // import PropTypes from 'prop-types';
 import PodSearch from './PodSearch';
 import PodCreate from './PodCreate';
@@ -25,20 +26,23 @@ function PodsList(props) {
   const RightBody = styled.div`grid-area: 1 / 2 / 2 / 4;`;
 
   //////////////////// Click Handlers ////////////////////////
+
   const [ viewState, setViewState ] = useState(0);
+  const [ selectedPodState, setSelectedPodState ] = useState({});
+  const selectedPod = useSelector((state) => state.selectedPod);
 
   const renderView = (view) => {
     switch (view) {
       case 0:
-        return <PodList />;
+        return <PodList onPodClick={setSelectedPodState} upDateViewState={setViewState} />;
       case 1:
         return <PodSearch />;
       case 2:
-        return <PodCreate />;
+        return <PodCreate updateViewState={setViewState} updateSelectedPodState={setSelectedPodState} />;
       case 3:
-        return <PodDetails />;
+        return <PodDetails thisPod={selectedPodState} />;
       default:
-        return <PodList />;
+        return <PodList onPodClick={setSelectedPodState} />;
     }
   };
 
