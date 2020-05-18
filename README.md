@@ -5,8 +5,8 @@
 ## Description
 This app will provide a space for neighbors and friends to exchange items from their gardens with other gardeners.
 
-### [Link to working demo](#)
-Coming soon...
+### [Link to working demo](https://victory-exchange.firebaseapp.com/)
+
 
 
 ## User Stories
