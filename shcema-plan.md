@@ -59,7 +59,7 @@
   userDate = {}
 ```
 
-### SelectedPod
+### SelectedOffer
 ```javascript
   selectedPod = {}
 ```
