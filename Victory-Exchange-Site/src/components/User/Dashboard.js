@@ -1,8 +1,9 @@
 import React from 'react';
-import firebase from 'firebase';
-import { Card } from 'react-bootstrap';
 import OfferList from './Offers/OffersList';
 import OffersMadeByUser from './Offers/OffersMadeByUser';
+
+//Styling imports
+import { Card } from 'react-bootstrap';
 
 function Dashboard() {
   return (

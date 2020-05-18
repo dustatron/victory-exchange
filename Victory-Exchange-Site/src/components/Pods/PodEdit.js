@@ -27,6 +27,7 @@ function PodEdit(props) {
       users: [ ...selectedPod.users ]
     };
     thisPod.update({ collection: 'pods', doc: selectedPod.podId }, updatePod);
+    props.onUpdateClick(0);
     dispatch({ type: 'UPDATE_SELECTED', ...updatePod });
   }
   return (
