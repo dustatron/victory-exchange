@@ -89,9 +89,10 @@ function App(props) {
 // eslint-disable-next-line
 App = connect(
   // Map redux state to component props
-  ({ firebase: { auth, profile } }) => ({
+  ({ firebase: { auth, profile, uid } }) => ({
     auth,
-    profile
+    profile,
+    uid
   })
 )(App);
 export default App;

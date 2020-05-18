@@ -22,8 +22,9 @@
 ```javascript
   pod = {
     podId: string,
-    Title:  string,
-    Owner: userId,
+    title:  string,
+    ownerId: userId,
+    ownerName: userName,
     tagLine: string,
     location: string,
     description: string,

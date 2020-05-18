@@ -13,7 +13,7 @@ function PodDetails() {
   const printPods = () => {
     if (isLoaded(podsList)) {
       return podsList.map((pod) => {
-        return <p>{pod.id}</p>;
+        return <p key={pod.id}>{pod.id}</p>;
       });
     }
   };
