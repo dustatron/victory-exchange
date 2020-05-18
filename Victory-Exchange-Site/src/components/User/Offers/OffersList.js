@@ -7,7 +7,7 @@ function OffersList(props) {
     <div>
       <h1> Offers List</h1>
       {props.pods.map(pod => {
-        return <OfferItem pod={pod} />;
+        return <OfferItem key={pod.podId} pod={pod} />;
       })}
 
       <hr />
