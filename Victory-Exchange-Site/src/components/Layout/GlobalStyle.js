@@ -13,7 +13,7 @@ export const MenuBox = styled.div`
   background-color: ${GlobalStyel.white};
   box-shadow: ${GlobalStyel.shadow};
   width: 100%;
-  height: 30vh;
+  height: 35vh;
   padding: 15px 20px;
   border-radius: ${GlobalStyel.corners};
   display: flex;
@@ -24,7 +24,7 @@ export const MenuBox = styled.div`
 export const MenuItem = styled.div`
   border-bottom: 1px solid black;
   margin: 20px 0;
-  font-size: 1.6rem;
+  font-size: 1.3rem;
   cursor: pointer;
   justify-content: center;
 `;

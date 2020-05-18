@@ -1,34 +1,64 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Dashboard from './Dashboard';
 import ProfileDetails from './Profiles/ProfileDetails';
-import ProfileEdit from './Profiles/ProfileEdit';
+import MyOffers from './Offers/MyOffers';
+import OfferCreate from './Offers/OfferCreate';
 
 //styling
 import { Container } from 'react-bootstrap';
-import styled from 'styled-components';
+import { GridLayout, RightBody, LeftMenu, MenuBox, MenuItem } from './../Layout/GlobalStyle';
 
 function UserControl() {
-  /////////////////// STYLES ////////////////////////////
-  const GridLayout = styled.div`
-    margin-top: 2rem;
-    display: grid;
-    grid-template-columns: 1fr 4fr;
-    grid-template-rows: 1fr;
-    grid-column-gap: 10px;
-    grid-row-gap: 0px;
-  `;
-  const LeftMenu = styled.div`grid-area: 1 / 1 / 2 / 2;`;
-  const RightBody = styled.div`grid-area: 1 / 2 / 2 / 4;`;
+  const [ viewState, setViewState ] = useState(0);
+  const renderView = view => {
+    switch (view) {
+      case 0:
+        return <Dashboard />;
+      case 1:
+        return <OfferCreate />;
+      case 2:
+        return <MyOffers />;
+      case 3:
+        return <ProfileDetails />;
+      default:
+        return <Dashboard />;
+    }
+  };
   return (
     <Container>
-      <h1>UserControl</h1>
       <GridLayout>
-        <LeftMenu>Left menu</LeftMenu>
-        <RightBody>
-          <Dashboard />
-          <ProfileDetails />
-          <ProfileEdit />
-        </RightBody>
+        <LeftMenu>
+          <MenuBox>
+            <MenuItem
+              onClick={() => {
+                setViewState(0);
+              }}>
+              All Offers
+            </MenuItem>
+
+            <MenuItem
+              onClick={() => {
+                setViewState(1);
+              }}>
+              New Offer
+            </MenuItem>
+
+            <MenuItem
+              onClick={() => {
+                setViewState(2);
+              }}>
+              Your Offers
+            </MenuItem>
+
+            <MenuItem
+              onClick={() => {
+                setViewState(3);
+              }}>
+              Profile
+            </MenuItem>
+          </MenuBox>
+        </LeftMenu>
+        <RightBody>{renderView(viewState)}</RightBody>
       </GridLayout>
     </Container>
   );
