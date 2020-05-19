@@ -7,11 +7,13 @@ import { useSelector } from 'react-redux';
 function OfferCreate(props) {
   const offers = useFirestore().collection('offers');
   const user = useSelector(state => state.firebase.auth);
+  const selectedPods = useSelector(state => state.firestore.ordered.selectedPods);
+
   const handleSubmit = event => {
     event.preventDefault();
-    const { title, details, img } = event.target;
+    const { title, details, img, pod } = event.target;
     const newOffer = {
-      podId: '7aJq6jRsca4vt2VLAhFH',
+      podId: pod.value,
       authorName: user.displayName,
       authorId: user.uid,
       title: title.value,
@@ -21,10 +23,10 @@ function OfferCreate(props) {
       replies: [],
       active: true
     };
-
     offers.add(newOffer);
     props.updateViewState(0);
   };
+
   return (
     <Card>
       <Card.Header>
@@ -45,6 +47,19 @@ function OfferCreate(props) {
           <Form.Group>
             <Form.Label> Image</Form.Label>
             <Form.Control type='text' name='img' placeholder='image mere' />
+          </Form.Group>
+
+          <Form.Group>
+            <Form.Label>Which Pod</Form.Label>
+            <Form.Control as='select' name='pod' custom>
+              {selectedPods.map(pod => {
+                return (
+                  <option key={pod.id} value={pod.id}>
+                    {pod.title}
+                  </option>
+                );
+              })}
+            </Form.Control>
           </Form.Group>
 
           <Button variant='primary' type='submit'>

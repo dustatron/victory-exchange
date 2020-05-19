@@ -22,10 +22,11 @@ function Dashboard() {
   const [ offersFromPod, setOffersFromPod ] = useState({});
 
   if (isLoaded(podsList)) {
-    console.log('pods', podsList);
     renderPodList = <CurrentPods pods={podsList} onPodClick={setOffersFromPod} />;
     if (offersFromPod.id) {
       renderList = <OfferList thisPodId={offersFromPod.id} podName={offersFromPod.title} />;
+    } else {
+      setOffersFromPod(podsList[0]);
     }
   }
 
