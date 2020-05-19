@@ -1,5 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+
+import ImagePicker from './ImagePicker';
 import { Form, Card, Button } from 'react-bootstrap';
 import { useFirestore } from 'react-redux-firebase';
 import { useSelector } from 'react-redux';
@@ -8,6 +9,8 @@ function OfferCreate(props) {
   const offers = useFirestore().collection('offers');
   const user = useSelector(state => state.firebase.auth);
   const selectedPods = useSelector(state => state.firestore.ordered.selectedPods);
+
+  const [ imageState, setImageState ] = useState('');
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -21,7 +24,7 @@ function OfferCreate(props) {
       authorId: user.uid,
       title: title.value,
       details: details.value,
-      img: img.value,
+      img: imageState,
       createdAt: Date.now(),
       replies: [],
       active: true
@@ -49,11 +52,6 @@ function OfferCreate(props) {
           </Form.Group>
 
           <Form.Group>
-            <Form.Label> Image</Form.Label>
-            <Form.Control type='text' name='img' placeholder='image mere' />
-          </Form.Group>
-
-          <Form.Group>
             <Form.Label>Which Pod</Form.Label>
             <Form.Control as='select' name='pod' custom>
               {selectedPods.map(pod => {
@@ -66,6 +64,13 @@ function OfferCreate(props) {
             </Form.Control>
           </Form.Group>
 
+          <Form.Group>
+            <Form.Label>Search for an image</Form.Label>
+            <ImagePicker updateImage={setImageState} />
+            <Form.Label> Image to Link</Form.Label>
+            <Form.Control type='text' name='img' defaultValue={imageState} />
+          </Form.Group>
+
           <Button variant='primary' type='submit'>
             Create
           </Button>
@@ -74,7 +79,5 @@ function OfferCreate(props) {
     </Card>
   );
 }
-
-OfferCreate.propTypes = {};
 
 export default OfferCreate;
