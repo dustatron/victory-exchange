@@ -7,7 +7,7 @@ function OfferItem(props) {
   return (
     <Card>
       <Card.Header>
-        <h4> {props.pod.title} </h4>
+        <h4> {props.offer.title} </h4>
       </Card.Header>
       <Card.Body>
         <OfferReplies />

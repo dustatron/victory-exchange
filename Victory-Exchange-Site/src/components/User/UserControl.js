@@ -33,14 +33,14 @@ function UserControl() {
               onClick={() => {
                 setViewState(0);
               }}>
-              All Offers
+              Offers
             </MenuItem>
 
             <MenuItem
               onClick={() => {
                 setViewState(1);
               }}>
-              New Offer
+              Make Offer
             </MenuItem>
 
             <MenuItem

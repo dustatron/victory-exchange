@@ -11,7 +11,7 @@ function OffersList(props) {
   let renderOffers;
   if (isLoaded(currentOffers)) {
     renderOffers = currentOffers.map(offer => {
-      return <p key={offer.id}> {offer.title}</p>;
+      return <OfferItem key={offer.id} offer={offer} />;
     });
   }
 
