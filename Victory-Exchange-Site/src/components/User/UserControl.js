@@ -15,7 +15,7 @@ function UserControl() {
       case 0:
         return <Dashboard />;
       case 1:
-        return <OfferCreate />;
+        return <OfferCreate updateViewState={setViewState} />;
       case 2:
         return <MyOffers />;
       case 3:

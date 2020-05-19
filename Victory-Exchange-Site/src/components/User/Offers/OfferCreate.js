@@ -23,6 +23,7 @@ function OfferCreate(props) {
     };
 
     offers.add(newOffer);
+    props.updateViewState(0);
   };
   return (
     <Card>

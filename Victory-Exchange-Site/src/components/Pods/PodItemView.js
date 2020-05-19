@@ -17,8 +17,13 @@ function PodItemView(props) {
 
   const joinPod = () => {
     console.log(profile);
+
     const updateProfile = { ...profile, ...{ uid: currentUser.uid }, ...{ pods: profile.pods ? [ ...profile.pods, thisPod.podId ] : [ thisPod.podId ] } };
+
     firestore.update({ collection: 'users', doc: currentUser.uid }, updateProfile);
+    if (!thisPod.users.includes(currentUser.uid)) {
+      firestore.update({ collection: 'pods', doc: thisPod.podId }, { users: [ ...thisPod.users, currentUser.uid ] });
+    }
   };
   return (
     <Card>

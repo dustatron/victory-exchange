@@ -1,30 +1,39 @@
 import React, { useState } from 'react';
 import OfferList from './Offers/OffersList';
+import CurrentPods from './Offers/CurrentPods';
 import { useSelector } from 'react-redux';
-import { useFirestoreConnect, isLoaded } from 'react-redux-firebase';
+import { isLoaded, useFirestoreConnect } from 'react-redux-firebase';
 
 //Styling imports
 import { Card } from 'react-bootstrap';
 
 function Dashboard() {
   const profile = useSelector(state => state.firebase.profile);
-  const currentUser = useSelector(state => state.firebase.auth);
 
-  useFirestoreConnect([ { collection: 'pods' }, { collection: 'pods', where: [ `ownerId`, '==', `${currentUser.uid}` ], storeAs: 'usersPods' } ]);
+  const currentUser = useSelector(state => state.firebase.auth);
+  const podsList = useSelector(state => state.firestore.ordered.selectedPods);
+
+  useFirestoreConnect([ { collection: 'pods', where: [ 'users', 'array-contains', currentUser.uid ], storeAs: 'selectedPods' } ]);
+
+  // useFirestoreConnect([ { collection: 'users', doc: `${currentUser.uid}`, storeAs: '' } ]);
 
   let renderList;
+  let renderPodList;
+  const [ offersFromPod, setOffersFromPod ] = useState({});
 
-  const pods = useSelector(state => state.firestore.ordered.pods);
-  if (isLoaded(pods)) {
-    console.log('pods', pods);
-    renderList = <OfferList pods={pods} />;
+  if (isLoaded(podsList)) {
+    console.log('pods', podsList);
+    renderPodList = <CurrentPods pods={podsList} onPodClick={setOffersFromPod} />;
+    if (offersFromPod.id) {
+      renderList = <OfferList thisPodId={offersFromPod.id} podName={offersFromPod.title} />;
+    }
   }
-  // const [ podListState, setPodListState ] = useState([]);
 
   return (
     <React.Fragment>
+      {renderPodList ? renderPodList : 'Loading...'}
       <Card>
-        <Card.Body>{renderList}</Card.Body>
+        <Card.Body>{renderList ? renderList : 'Loading...'}</Card.Body>
       </Card>
     </React.Fragment>
   );
