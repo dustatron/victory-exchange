@@ -27,6 +27,11 @@ export default function OfferEdit(props) {
     props.updateViewState(0);
   };
 
+  const handleDelete = () => {
+    firestore.delete({ collection: 'offers', doc: thisOffer.offerId });
+    props.updateViewState(0);
+  };
+
   return (
     <Card>
       <Card.Header>
@@ -79,10 +84,19 @@ export default function OfferEdit(props) {
               })}
             </Form.Control>
           </Form.Group>
-
-          <Button variant='primary' type='submit'>
-            Update
-          </Button>
+          <Row>
+            <Col>
+              <Button variant='primary' type='submit'>
+                Update
+              </Button>
+            </Col>
+            <Col className='text-right'>
+              <Button onClick={handleDelete} variant='danger'>
+                {' '}
+                Delete{' '}
+              </Button>
+            </Col>
+          </Row>
         </Form>
       </Card.Body>
     </Card>
