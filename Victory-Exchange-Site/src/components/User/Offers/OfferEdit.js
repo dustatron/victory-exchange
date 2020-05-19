@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { useFirestore } from 'react-redux-firebase';
+import ImagePicker from './ImagePicker';
 
 import { Card, Form, Button, Row, Col } from 'react-bootstrap';
 
@@ -9,6 +10,11 @@ export default function OfferEdit(props) {
   const thisOffer = useSelector(state => state.selectedOffer);
   const podsList = useSelector(state => state.firestore.ordered.selectedPods);
   const firestore = useFirestore();
+  const [ imageState, setImageState ] = useState('');
+
+  if (imageState === '') {
+    setImageState(thisOffer.img);
+  }
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -18,7 +24,7 @@ export default function OfferEdit(props) {
     const updateOffer = {
       title: title.value,
       details: details.value,
-      img: img.value,
+      img: imageState,
       active: active.value,
       podId: pod.value,
       podName: podName
@@ -56,11 +62,6 @@ export default function OfferEdit(props) {
           </Form.Group>
 
           <Form.Group>
-            <Form.Label> Image</Form.Label>
-            <Form.Control type='text' name='img' defaultValue={thisOffer.img} />
-          </Form.Group>
-
-          <Form.Group>
             <Form.Label>Current Status : {thisOffer.active ? 'Active' : 'Close'}</Form.Label>
             <Form.Control as='select' name='active' custom>
               <option selected={thisOffer.active ? 'selected' : ''} value={true}>
@@ -84,6 +85,20 @@ export default function OfferEdit(props) {
               })}
             </Form.Control>
           </Form.Group>
+
+          <Form.Group>
+            <Form.Label>Search for an image</Form.Label>
+            <ImagePicker updateImage={setImageState} />
+            <Form.Label> Image to Link</Form.Label>
+            <Form.Control
+              type='text'
+              name='img'
+              defaultValue={imageState}
+              onChange={event => {
+                setImageState(event.target.value);
+              }}
+            />
+          </Form.Group>
           <Row>
             <Col>
               <Button variant='primary' type='submit'>
@@ -92,8 +107,7 @@ export default function OfferEdit(props) {
             </Col>
             <Col className='text-right'>
               <Button onClick={handleDelete} variant='danger'>
-                {' '}
-                Delete{' '}
+                delete
               </Button>
             </Col>
           </Row>

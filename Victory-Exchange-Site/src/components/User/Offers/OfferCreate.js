@@ -11,7 +11,6 @@ function OfferCreate(props) {
   const selectedPods = useSelector(state => state.firestore.ordered.selectedPods);
 
   const [ imageState, setImageState ] = useState('');
-
   const handleSubmit = event => {
     event.preventDefault();
 
@@ -68,7 +67,14 @@ function OfferCreate(props) {
             <Form.Label>Search for an image</Form.Label>
             <ImagePicker updateImage={setImageState} />
             <Form.Label> Image to Link</Form.Label>
-            <Form.Control type='text' name='img' defaultValue={imageState} />
+            <Form.Control
+              type='text'
+              name='img'
+              defaultValue={imageState}
+              onChange={event => {
+                setImageState(event.target.value);
+              }}
+            />
           </Form.Group>
 
           <Button variant='primary' type='submit'>

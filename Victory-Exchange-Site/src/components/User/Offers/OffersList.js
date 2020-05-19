@@ -17,7 +17,7 @@ function OffersList(props) {
 
   return (
     <div>
-      <h1> {props.podName}</h1>
+      <h2> {props.podName}</h2>
       <hr />
       {renderOffers}
     </div>

@@ -17,7 +17,7 @@ function OffersMadeByUser(props) {
 
   return (
     <div>
-      Offers Made By User
+      <h2> Your Offers </h2>
       {renderOffers}
     </div>
   );
