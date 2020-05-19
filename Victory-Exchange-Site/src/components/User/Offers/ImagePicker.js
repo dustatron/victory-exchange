@@ -30,10 +30,14 @@ function ImagePicker(props) {
   }
 
   const handleImageSearch = async searchTerm => {
-    const result = await axios(`https://api.giphy.com/v1/stickers/search?api_key=${process.env.REACT_APP_GIPHY_API}&q=${searchTerm}&limit=6&offset=10&rating=G&lang=en`);
+    //with Giphy
+    // const result = await axios(`https://api.giphy.com/v1/stickers/search?api_key=${process.env.REACT_APP_GIPHY_API}&q=${searchTerm}&limit=6&offset=10&rating=G&lang=en`);
 
-    setImageOptions(result.data.data);
-    console.log(result.data.data);
+    //https://pixabay.com/api/docs/
+    const result = await axios(`https://pixabay.com/api/?key=${process.env.REACT_APP_PIXABAY}&q=${searchTerm}&image_type=photo&orientation=horizontal&per_page=6`);
+
+    setImageOptions(result.data.hits);
+    console.log(result.data.hits);
   };
 
   const handleImageClick = link => {
@@ -56,11 +60,13 @@ function ImagePicker(props) {
         </InputGroup>
         <ImageGrid>
           {imageOptions.map((item, index) => {
-            const { images: { fixed_height: { url } } } = item;
+            //For Giphy
+            // const { images: { fixed_height: { url } } } = item;
+            const { largeImageURL } = item;
             return (
               <img
                 onClick={() => {
-                  handleImageClick(url);
+                  handleImageClick(largeImageURL);
                 }}
                 key={index}
                 style={{
@@ -68,7 +74,7 @@ function ImagePicker(props) {
                   maxWidth: '100%',
                   maxHeight: '200px'
                 }}
-                src={url}
+                src={largeImageURL}
               />
             );
           })}
