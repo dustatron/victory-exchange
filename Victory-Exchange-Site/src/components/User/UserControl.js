@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Dashboard from './Dashboard';
 import ProfileDetails from './Profiles/ProfileDetails';
 import MyOffers from './Offers/MyOffers';
+import OfferEdit from './Offers/OfferEdit';
 import OfferCreate from './Offers/OfferCreate';
 
 //styling
@@ -13,13 +14,15 @@ function UserControl() {
   const renderView = view => {
     switch (view) {
       case 0:
-        return <Dashboard />;
+        return <Dashboard updateViewState={setViewState} />;
       case 1:
         return <OfferCreate updateViewState={setViewState} />;
       case 2:
-        return <MyOffers />;
+        return <MyOffers updateViewState={setViewState} />;
       case 3:
         return <ProfileDetails />;
+      case 4:
+        return <OfferEdit updateViewState={setViewState} />;
       default:
         return <Dashboard />;
     }

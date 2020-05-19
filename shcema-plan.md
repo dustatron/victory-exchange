@@ -18,7 +18,8 @@
 ```
 
 ### Pod
-
+-- Reducer ---
+{ type: 'UPDATE_SELECTED' }
 ```javascript
   pod = {
     podId: string,
@@ -37,22 +38,26 @@
 ```
 
 ### Offer
+-- Reducer ---
+{type: 'UPDATE_SELECT_OFFER'}
+
 ```javascript
   Offer = {
-    offerId: string,
-    podId: podId,
-    author: userId,
-    title: string,
-    detials: string,
-    img: string,
-    createdAt: date,
+    offerId: 'string',
+    podId: 'podId',
+    podName: 'podName',
+    author: 'userId',
+    title: 'string',
+    details: 'string',
+    img: 'string',
+    createdAt: 'date',
     replies: [{
-      createdAt: date,
-      userName: string,
-      userId: userId,
-      message: string
+      createdAt: 'date',
+      userName: 'string',
+      userId: 'userId',
+      message: 'string'
     }],
-    active: bool
+    active: true
   }
 ```
 

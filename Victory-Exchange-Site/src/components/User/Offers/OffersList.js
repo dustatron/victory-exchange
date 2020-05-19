@@ -11,7 +11,7 @@ function OffersList(props) {
   let renderOffers;
   if (isLoaded(currentOffers)) {
     renderOffers = currentOffers.map(offer => {
-      return <OfferItem key={offer.id} offer={offer} />;
+      return <OfferItem key={offer.id} offer={offer} onUpdateViewState={props.whenUpdateViewClick} />;
     });
   }
 
@@ -24,6 +24,8 @@ function OffersList(props) {
   );
 }
 
-OffersList.propTypes = {};
+OffersList.propTypes = {
+  whenUpdateViewClick: PropTypes.func
+};
 
 export default OffersList;

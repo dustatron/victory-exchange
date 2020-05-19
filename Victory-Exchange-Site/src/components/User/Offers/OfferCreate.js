@@ -11,18 +11,22 @@ function OfferCreate(props) {
 
   const handleSubmit = event => {
     event.preventDefault();
+
     const { title, details, img, pod } = event.target;
+    const podName = selectedPods[pod.options.selectedIndex].title;
     const newOffer = {
       podId: pod.value,
+      podName: podName,
       authorName: user.displayName,
       authorId: user.uid,
       title: title.value,
-      detials: details.value,
+      details: details.value,
       img: img.value,
       createdAt: Date.now(),
       replies: [],
       active: true
     };
+    console.log(newOffer);
     offers.add(newOffer);
     props.updateViewState(0);
   };
@@ -41,7 +45,7 @@ function OfferCreate(props) {
 
           <Form.Group>
             <Form.Label>Details</Form.Label>
-            <Form.Control type='text-area' name='details' placeholder='Give us all the details.' />
+            <Form.Control as='textarea' rows='3' name='details' placeholder='Give us all the details.' />
           </Form.Group>
 
           <Form.Group>
