@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { useFirestore } from 'react-redux-firebase';
 
 import { Card, Form, Button, Row, Col } from 'react-bootstrap';
 
-export default function OfferEdit() {
+export default function OfferEdit(props) {
   const thisOffer = useSelector(state => state.selectedOffer);
   const podsList = useSelector(state => state.firestore.ordered.selectedPods);
   const firestore = useFirestore();
@@ -23,7 +24,7 @@ export default function OfferEdit() {
       podName: podName
     };
     firestore.update({ collection: 'offers', doc: thisOffer.offerId }, updateOffer);
-    console.log(updateOffer);
+    props.updateViewState(0);
   };
 
   return (
@@ -87,3 +88,7 @@ export default function OfferEdit() {
     </Card>
   );
 }
+
+OfferEdit.propTypes = {
+  updateViewState: PropTypes.func
+};
