@@ -25,6 +25,7 @@ function PodSearch(props) {
     dispatch(action);
     console.log(action);
     props.updateViewState(3);
+    props.updateViewState(0);
   };
 
   return (

@@ -3,11 +3,11 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
-import { Card, Form, Button, InputGroup, FormControl } from 'react-bootstrap';
+import { Card, Form, Button, InputGroup, FormControl, Tab, Tabs } from 'react-bootstrap';
 
 function ImagePicker(props) {
   const [ imageOptions, setImageOptions ] = useState([]);
-  const [ imageSearch, setImageSearch ] = useState('');
+  const [ giphySearch, setGiphySearchSearch ] = useState([]);
 
   const ImageGrid = styled.div`
     display: grid;
@@ -29,6 +29,16 @@ function ImagePicker(props) {
     // getImages();
   }
 
+  const handleGiphySearch = async searchTerm => {
+    //with Giphy
+    const result = await axios(`https://api.giphy.com/v1/stickers/search?api_key=${process.env.REACT_APP_GIPHY_API}&q=${searchTerm}&limit=6&offset=10&rating=G&lang=en`);
+
+    //https://pixabay.com/api/docs/
+    // const result = await axios(`https://pixabay.com/api/?key=${process.env.REACT_APP_PIXABAY}&q=${searchTerm}&image_type=photo&orientation=horizontal&per_page=6`);
+
+    setGiphySearchSearch(result.data.data);
+  };
+
   const handleImageSearch = async searchTerm => {
     //with Giphy
     // const result = await axios(`https://api.giphy.com/v1/stickers/search?api_key=${process.env.REACT_APP_GIPHY_API}&q=${searchTerm}&limit=6&offset=10&rating=G&lang=en`);
@@ -37,7 +47,6 @@ function ImagePicker(props) {
     const result = await axios(`https://pixabay.com/api/?key=${process.env.REACT_APP_PIXABAY}&q=${searchTerm}&image_type=photo&orientation=horizontal&per_page=6`);
 
     setImageOptions(result.data.hits);
-    console.log(result.data.hits);
   };
 
   const handleImageClick = link => {
@@ -45,42 +54,85 @@ function ImagePicker(props) {
   };
 
   return (
-    <Card>
-      <Card.Body>
-        <InputGroup>
-          <InputGroup.Prepend>
-            <Button variant='outline-secondary'>Search</Button>
-          </InputGroup.Prepend>
-          <FormControl
-            aria-describedby='basic-addon1'
-            onChange={event => {
-              handleImageSearch(event.target.value);
-            }}
-          />
-        </InputGroup>
-        <ImageGrid>
-          {imageOptions.map((item, index) => {
-            //For Giphy
-            // const { images: { fixed_height: { url } } } = item;
-            const { largeImageURL } = item;
-            return (
-              <img
-                onClick={() => {
-                  handleImageClick(largeImageURL);
-                }}
-                key={index}
-                style={{
-                  gridArea: `img${index}`,
-                  maxWidth: '100%',
-                  maxHeight: '200px'
-                }}
-                src={largeImageURL}
-              />
-            );
-          })}
-        </ImageGrid>
-      </Card.Body>
-    </Card>
+    <div>
+      <Tabs defaultActiveKey='home' transition={false} id='noanim-tab-example'>
+        <Tab eventKey='home' title='Still Images'>
+          <Card>
+            <Card.Body>
+              <InputGroup>
+                <InputGroup.Prepend>
+                  <Button variant='outline-info'>Search</Button>
+                </InputGroup.Prepend>
+                <FormControl
+                  placeholder='search for still images'
+                  onChange={event => {
+                    handleImageSearch(event.target.value);
+                  }}
+                />
+              </InputGroup>
+              <ImageGrid>
+                {imageOptions.map((item, index) => {
+                  //For Giphy
+                  // const { images: { fixed_height: { url } } } = item;
+                  const { largeImageURL } = item;
+                  return (
+                    <img
+                      onClick={() => {
+                        handleImageClick(largeImageURL);
+                      }}
+                      key={index}
+                      style={{
+                        gridArea: `img${index}`,
+                        maxWidth: '100%',
+                        maxHeight: '200px'
+                      }}
+                      src={largeImageURL}
+                    />
+                  );
+                })}
+              </ImageGrid>
+            </Card.Body>
+          </Card>
+        </Tab>
+        <Tab eventKey='profile' title='Gifs'>
+          <Card>
+            <Card.Body>
+              <InputGroup>
+                <InputGroup.Prepend>
+                  <Button variant='outline-success'>Search</Button>
+                </InputGroup.Prepend>
+                <FormControl
+                  placeholder='search for animated gifs'
+                  onChange={event => {
+                    handleGiphySearch(event.target.value);
+                  }}
+                />
+              </InputGroup>
+              <ImageGrid>
+                {giphySearch.map((item, index) => {
+                  //For Giphy
+                  const { images: { fixed_height: { url } } } = item;
+                  return (
+                    <img
+                      onClick={() => {
+                        handleImageClick(url);
+                      }}
+                      key={index}
+                      style={{
+                        gridArea: `img${index}`,
+                        maxWidth: '100%',
+                        maxHeight: '200px'
+                      }}
+                      src={url}
+                    />
+                  );
+                })}
+              </ImageGrid>
+            </Card.Body>
+          </Card>
+        </Tab>
+      </Tabs>
+    </div>
   );
 }
 
