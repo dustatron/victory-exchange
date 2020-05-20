@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import OfferReplies from './OfferReplies';
 import MakeReply from './MakeReply';
@@ -12,7 +12,7 @@ import { GlobalStyel } from '../../Layout/GlobalStyle';
 function OfferItem(props) {
   const dispatch = useDispatch();
   const user = useSelector(state => state.firebase.auth);
-  // const pods = useSelector(state => state.firebase.)
+  const [ showReply, setShowReply ] = useState(false);
 
   const Spacer = styled.div`
     margin: 15px 0;
@@ -29,7 +29,12 @@ function OfferItem(props) {
   let renderEditButton;
 
   if (offer.authorId === user.uid) {
-    renderEditButton = <Button onClick={handleEditButton}> Edit </Button>;
+    renderEditButton = (
+      <Button onClick={handleEditButton} variant='warning'>
+        {' '}
+        Edit{' '}
+      </Button>
+    );
   }
 
   return (
@@ -55,14 +60,35 @@ function OfferItem(props) {
               </ListGroup>
             </Col>
           </Row>
-          <ListGroup horizontal={'md'}>
-            <ListGroup.Item>Pod : {offer.podName}</ListGroup.Item>
-            <ListGroup.Item>Posted on : {new Date(offer.createdAt).toLocaleDateString()}</ListGroup.Item>
-            <ListGroup.Item>Status : {offer.active ? 'Still available' : 'Closed'}</ListGroup.Item>
-            <ListGroup.Item>
-              <OfferReplies replies={offer.replies} />
-            </ListGroup.Item>
-          </ListGroup>
+          <Row>
+            <Col sm={12} md={{ span: 10, offset: 1 }} style={{ margin: '10px auto' }}>
+              <ListGroup horizontal={'lg'}>
+                <ListGroup.Item>Pod : {offer.podName}</ListGroup.Item>
+                <ListGroup.Item>Posted on : {new Date(offer.createdAt).toLocaleDateString()}</ListGroup.Item>
+                <ListGroup.Item>{offer.active ? 'Still available' : 'Closed'}</ListGroup.Item>
+                <ListGroup.Item>
+                  <Button
+                    variant='success'
+                    onClick={() => {
+                      setShowReply(!showReply);
+                    }}>
+                    Reply ({offer.replies.length})
+                  </Button>
+                </ListGroup.Item>
+              </ListGroup>
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={{ span: 10, offset: 1 }}>
+              {showReply ? (
+                <div>
+                  <MakeReply offerId={offer.id} offerReplies={offer.replies} /> <OfferReplies replies={offer.replies} />
+                </div>
+              ) : (
+                <div />
+              )}
+            </Col>
+          </Row>
 
           {/* <MakeReply /> */}
         </Card.Body>
@@ -72,6 +98,7 @@ function OfferItem(props) {
 }
 
 OfferItem.propTypes = {
-  onUpdateViewState: PropTypes.func
+  onUpdateViewState: PropTypes.func,
+  offer: PropTypes.object
 };
 export default OfferItem;

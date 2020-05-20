@@ -16,8 +16,6 @@ function PodItemView(props) {
   };
 
   const joinPod = () => {
-    console.log(profile);
-
     const updateProfile = { ...profile, ...{ uid: currentUser.uid }, ...{ pods: profile.pods ? [ ...profile.pods, thisPod.podId ] : [ thisPod.podId ] } };
 
     firestore.update({ collection: 'users', doc: currentUser.uid }, updateProfile);
