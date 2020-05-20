@@ -13,8 +13,8 @@ function PodSearch(props) {
 
   const handleSubmit = event => {
     event.preventDefault();
-    const search = Object.values(allPods).filter(pod => {
-      return pod.title.toLowerCase().includes(inputState.toLowerCase()) || pod.location.toLowerCase().includes(inputState.toLowerCase());
+    const search = Object.entries(allPods).filter(pod => {
+      return pod[1].title.toLowerCase().includes(inputState.toLowerCase()) || pod[1].location.toLowerCase().includes(inputState.toLowerCase());
     });
     setSearchResults(search);
   };
@@ -46,7 +46,14 @@ function PodSearch(props) {
       </Card.Header>
       <Card.Body>
         {searchResults.map(pod => {
-          return <PodListItem pod={pod} onPodClick={hanglePodClick} />;
+          return (
+            <PodListItem
+              pod={pod[1]}
+              onPodClick={() => {
+                hanglePodClick(pod[1], pod[0]);
+              }}
+            />
+          );
         })}
       </Card.Body>
     </Card>
