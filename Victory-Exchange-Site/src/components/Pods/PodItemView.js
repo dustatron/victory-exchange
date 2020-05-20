@@ -25,13 +25,10 @@ function PodItemView(props) {
   };
   return (
     <Card>
-      <Card.Header>
-        <Card.Title>
-          <h4> {thisPod.title} </h4>
-        </Card.Title>
-        <Card.Subtitle className='mb-2 text-muted'> {thisPod.tagLine}</Card.Subtitle>
-      </Card.Header>
       <Card.Body>
+        <h4> {thisPod.title} </h4>
+        <Card.Subtitle className='mb-2 text-muted'> {thisPod.tagLine}</Card.Subtitle>
+        <hr />
         <Row>
           <Col dm={3}>
             <Card.Img variant='top' src={thisPod.podImg} />
