@@ -33,8 +33,8 @@ function Dashboard(props) {
 
   return (
     <React.Fragment>
-      {renderPodList ? renderPodList : 'Loading...'}
       <Card>
+        <Card.Header>{renderPodList ? renderPodList : 'Loading...'}</Card.Header>
         <Card.Body>{renderList ? renderList : 'Loading...'}</Card.Body>
       </Card>
     </React.Fragment>
