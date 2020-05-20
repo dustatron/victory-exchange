@@ -13,7 +13,9 @@ function PodSearch(props) {
 
   const handleSubmit = event => {
     event.preventDefault();
-    const search = Object.values(allPods).filter(pod => pod.title.toLowerCase().includes(inputState.toLowerCase()) || pod.location.toLowerCase().includes(inputState.toLowerCase()));
+    const search = Object.values(allPods).filter(pod => {
+      return pod.title.toLowerCase().includes(inputState.toLowerCase()) || pod.location.toLowerCase().includes(inputState.toLowerCase());
+    });
     setSearchResults(search);
     console.log(searchResults);
   };
