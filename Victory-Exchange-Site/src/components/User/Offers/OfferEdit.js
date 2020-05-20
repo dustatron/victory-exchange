@@ -64,10 +64,13 @@ export default function OfferEdit(props) {
           <Form.Group>
             <Form.Label>Current Status : {thisOffer.active ? 'Active' : 'Close'}</Form.Label>
             <Form.Control as='select' name='active' custom>
-              <option selected={thisOffer.active ? 'selected' : ''} value={true}>
+              <option selected={thisOffer.active === '0' ? 'selected' : ''} value={0}>
                 Active
               </option>
-              <option selected={thisOffer.active ? '' : 'selected'} value={false}>
+              <option selected={thisOffer.active === '1' ? 'selected' : ''} value={1}>
+                Pending
+              </option>
+              <option selected={thisOffer.active === '2' ? 'selected' : ''} value={2}>
                 Closed
               </option>
             </Form.Control>

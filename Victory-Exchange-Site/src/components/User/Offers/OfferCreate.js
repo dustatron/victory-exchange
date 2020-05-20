@@ -27,7 +27,7 @@ function OfferCreate(props) {
       img: imageState,
       createdAt: Date.now(),
       replies: [],
-      active: true
+      active: 0
     };
     console.log(newOffer);
     offers.add(newOffer);

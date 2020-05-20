@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import OfferItem from './OfferItem';
 import { useFirestoreConnect, isLoaded } from 'react-redux-firebase';
 import { useSelector } from 'react-redux';
+import { Card } from 'react-bootstrap';
 
 function OffersMadeByUser(props) {
   const currentUser = useSelector(state => state.firebase.auth);
@@ -16,10 +17,13 @@ function OffersMadeByUser(props) {
   }
 
   return (
-    <div>
-      <h2> Your Offers </h2>
-      {renderOffers}
-    </div>
+    <Card>
+      <Card.Body>
+        <h2> Your Offers </h2>
+        <hr />
+        {renderOffers}
+      </Card.Body>
+    </Card>
   );
 }
 

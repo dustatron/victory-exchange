@@ -27,6 +27,18 @@ function OfferItem(props) {
   };
 
   let renderEditButton;
+  let status = () => {
+    switch (offer.active) {
+      case '0':
+        return 'Active';
+      case '1':
+        return 'Pending';
+      case '2':
+        return 'closed';
+      default:
+        return 'Active';
+    }
+  };
 
   if (offer.authorId === user.uid) {
     renderEditButton = (
@@ -65,7 +77,7 @@ function OfferItem(props) {
               <ListGroup horizontal={'lg'}>
                 <ListGroup.Item>Pod : {offer.podName}</ListGroup.Item>
                 <ListGroup.Item>Posted on : {new Date(offer.createdAt).toLocaleDateString()}</ListGroup.Item>
-                <ListGroup.Item>{offer.active ? 'Still available' : 'Closed'}</ListGroup.Item>
+                <ListGroup.Item>{status()}</ListGroup.Item>
                 <ListGroup.Item>
                   <Button
                     variant='success'
@@ -82,7 +94,9 @@ function OfferItem(props) {
             <Col sm={{ span: 10, offset: 1 }}>
               {showReply ? (
                 <div>
-                  <MakeReply offerId={offer.id} offerReplies={offer.replies} /> <OfferReplies replies={offer.replies} />
+                  <OfferReplies replies={offer.replies} />
+                  <hr />
+                  <MakeReply offerId={offer.id} offerReplies={offer.replies} />
                 </div>
               ) : (
                 <div />
