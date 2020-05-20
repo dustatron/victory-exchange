@@ -17,7 +17,6 @@ function PodSearch(props) {
       return pod.title.toLowerCase().includes(inputState.toLowerCase()) || pod.location.toLowerCase().includes(inputState.toLowerCase());
     });
     setSearchResults(search);
-    console.log(searchResults);
   };
 
   const hanglePodClick = (podObject, podId) => {
@@ -25,7 +24,6 @@ function PodSearch(props) {
     dispatch(action);
     console.log(action);
     props.updateViewState(3);
-    props.updateViewState(0);
   };
 
   return (
