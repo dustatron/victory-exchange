@@ -5,6 +5,7 @@ import PodCreate from './PodCreate';
 import PodDetails from './PodDetails';
 import PodList from './PodList';
 import PodMenu from './PodMenu';
+import MyPods from './MyPods';
 
 import { GridLayout, LeftMenu, RightBody } from '../Layout/GlobalStyle';
 
@@ -27,8 +28,10 @@ function PodsList(props) {
         return <PodCreate updateViewState={setViewState} />;
       case 3:
         return <PodDetails updateViewState={setViewState} />;
+      case 4:
+        return <MyPods updateViewState={setViewState} />;
       default:
-        return <PodList />;
+        return <PodList updateViewState={setViewState} />;
     }
   };
 

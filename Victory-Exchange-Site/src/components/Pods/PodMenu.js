@@ -24,13 +24,12 @@ function PodMenu(props) {
         }}>
         Add
       </MenuItem>
-      {/* <MenuItem
+      <MenuItem
         onClick={() => {
-          props.onMenuClick(3);
-        }}
-      >
-        Details
-      </MenuItem> */}
+          props.onMenuClick(4);
+        }}>
+        My Pods
+      </MenuItem>
     </MenuBox>
   );
 }
