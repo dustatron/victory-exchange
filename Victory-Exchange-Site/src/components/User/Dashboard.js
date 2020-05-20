@@ -19,7 +19,6 @@ function Dashboard(props) {
   const [ offersSelection, setOffersSelection ] = useState([]);
   const [ offerTitle, setOfferTitle ] = useState('');
   const podsList = useSelector(state => state.firestore.ordered.selectedPods);
-  // const podsArray = [ '4KwqIrA2Fam2rFSRjhtS', '7aJq6jRsca4vt2VLAhFH', 'P0DXdiE5Lg38jz83CYBF', 'WhHAswzmbXxtkoOjIO4H' ];
 
   const handleSelectingPod = (all, pod) => {
     if (all) {

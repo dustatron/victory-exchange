@@ -14,6 +14,7 @@ function CurrentPods(props) {
   return (
     <div>
       <Button
+        style={buttonStyle}
         variant='success'
         onClick={() => {
           props.onPodClick(true);

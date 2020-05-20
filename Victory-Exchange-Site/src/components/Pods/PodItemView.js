@@ -23,6 +23,23 @@ function PodItemView(props) {
       firestore.update({ collection: 'pods', doc: thisPod.podId }, { users: [ ...thisPod.users, currentUser.uid ] });
     }
   };
+
+  const handleLeavePod = () => {
+    if (currentUser.uid !== thisPod.ownerId) {
+      //remove user from pods user list
+      const newUserList = thisPod.users.filter(user => user !== currentUser.uid);
+      firestore.update({ collection: 'pods', doc: thisPod.podId }, { users: [ ...newUserList ] });
+    }
+
+    //remove pod from users profile
+    const updateProfile = {
+      ...profile,
+      ...{ uid: currentUser.uid },
+      ...{ pods: [ ...profile.pods.filter(pod => pod !== thisPod.id) ] }
+    };
+    firestore.update({ collection: 'users', doc: currentUser.uid }, updateProfile);
+  };
+
   return (
     <Card>
       <Card.Body>
@@ -37,7 +54,7 @@ function PodItemView(props) {
             <ListGroup className='list-group-flush'>
               <ListGroupItem>Description: {thisPod.description}</ListGroupItem>
               <ListGroupItem>Location: {thisPod.location}</ListGroupItem>
-              <ListGroupItem>Created By: {thisPod.OwnerName}</ListGroupItem>
+              <ListGroupItem>Created By: {thisPod.ownerName}</ListGroupItem>
               <ListGroupItem>Users: {thisPod.users.length}</ListGroupItem>
               <ListGroupItem>Created on: {new Date(thisPod.createdAt).toLocaleDateString()}</ListGroupItem>
             </ListGroup>
@@ -46,20 +63,26 @@ function PodItemView(props) {
       </Card.Body>
       <Card.Body>
         <div style={{ display: 'flex', flexFlow: 'row', justifyContent: 'center', alignItems: 'center', alignContent: 'space-evenly' }}>
-          <Button
-            style={{ margin: '0 10px' }}
-            variant='outline-primary'
-            onClick={() => {
-              props.onEditClick(1);
-            }}>
-            Edit
-          </Button>
-          <Button style={{ margin: '0 10px' }} onClick={joinPod} variant='outline-success'>
-            Join Pod
-          </Button>
-          <Button style={{ margin: '0 10px' }} onClick={deletePod} variant='outline-danger'>
-            Delete Pod
-          </Button>
+          {/* ///////////////  Join Or Leave /////////////////// */}
+          {thisPod.users.includes(currentUser.uid) ? <Button as='input' value={currentUser.uid === thisPod.ownerId ? 'Admin' : 'Leave Pod'} onClick={handleLeavePod} /> : <Button as='input' style={{ margin: '0 10px' }} onClick={joinPod} variant='outline-success' value='Join Pod' />}
+
+          {/* //////  EDIT  //// */}
+          {currentUser.uid === thisPod.ownerId ? (
+            <Button
+              as='input'
+              style={{ margin: '0 10px' }}
+              variant='outline-primary'
+              onClick={() => {
+                props.onEditClick(1);
+              }}
+              value='Edit'
+            />
+          ) : (
+            ''
+          )}
+
+          {/* //////  DELETE  //// */}
+          {currentUser.uid === thisPod.ownerId ? <Button as='input' style={{ margin: '0 10px' }} onClick={deletePod} variant='outline-danger' value='Delete Pod' /> : ''}
         </div>
       </Card.Body>
     </Card>
