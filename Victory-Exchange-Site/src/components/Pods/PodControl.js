@@ -15,14 +15,14 @@ function PodsList(props) {
 
   const [ viewState, setViewState ] = useState(0);
   // const [ selectedPodState, setSelectedPodState ] = useState({}); // retire
-  const selectedPod = useSelector((state) => state.selectedPod);
+  const selectedPod = useSelector(state => state.selectedPod);
 
-  const renderView = (view) => {
+  const renderView = view => {
     switch (view) {
       case 0:
         return <PodList upDateViewState={setViewState} />;
       case 1:
-        return <PodSearch />;
+        return <PodSearch updateViewState={setViewState} />;
       case 2:
         return <PodCreate updateViewState={setViewState} />;
       case 3:
