@@ -9,31 +9,28 @@ function PodMenu(props) {
       <MenuItem
         onClick={() => {
           props.onMenuClick(0);
-        }}
-      >
+        }}>
         List
       </MenuItem>
       <MenuItem
         onClick={() => {
           props.onMenuClick(1);
-        }}
-      >
+        }}>
         Search
       </MenuItem>
       <MenuItem
         onClick={() => {
           props.onMenuClick(2);
-        }}
-      >
+        }}>
         Add
       </MenuItem>
-      <MenuItem
+      {/* <MenuItem
         onClick={() => {
           props.onMenuClick(3);
         }}
       >
         Details
-      </MenuItem>
+      </MenuItem> */}
     </MenuBox>
   );
 }
