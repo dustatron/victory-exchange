@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { useFirestore } from 'react-redux-firebase';
-import ImagePicker from './ImagePicker';
+import ImagePicker from '../../Shared/ImagePicker';
 
 import { Card, Form, Button, Row, Col } from 'react-bootstrap';
 

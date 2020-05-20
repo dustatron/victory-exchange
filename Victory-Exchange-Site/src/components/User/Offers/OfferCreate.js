@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import ImagePicker from './ImagePicker';
+import ImagePicker from '../../Shared/ImagePicker';
 import { Form, Card, Button } from 'react-bootstrap';
 import { useFirestore } from 'react-redux-firebase';
 import { useSelector } from 'react-redux';
@@ -11,6 +11,7 @@ function OfferCreate(props) {
   const selectedPods = useSelector(state => state.firestore.ordered.selectedPods);
 
   const [ imageState, setImageState ] = useState('');
+
   const handleSubmit = event => {
     event.preventDefault();
 
