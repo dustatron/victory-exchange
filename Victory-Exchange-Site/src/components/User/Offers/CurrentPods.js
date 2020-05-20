@@ -7,17 +7,26 @@ function CurrentPods(props) {
     margin: '5px'
   };
 
-  const handleClick = id => {
-    props.onPodClick(id);
+  const handleClick = (isAll, pod) => {
+    props.onPodClick(isAll, pod);
   };
+
   return (
     <div>
+      <Button
+        variant='success'
+        onClick={() => {
+          props.onPodClick(true);
+        }}>
+        All Offers
+      </Button>
+
       {props.pods.map(pod => {
         return (
           <Button
             variant='outline-success'
             onClick={() => {
-              handleClick(pod);
+              props.onPodClick(false, pod);
             }}
             style={buttonStyle}
             key={pod.id}>

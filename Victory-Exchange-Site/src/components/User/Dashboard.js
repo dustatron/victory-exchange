@@ -10,24 +10,39 @@ import { Card } from 'react-bootstrap';
 
 function Dashboard(props) {
   const profile = useSelector(state => state.firebase.profile);
-
   const currentUser = useSelector(state => state.firebase.auth);
-  const podsList = useSelector(state => state.firestore.ordered.selectedPods);
 
   useFirestoreConnect([ { collection: 'pods', where: [ 'users', 'array-contains', currentUser.uid ], storeAs: 'selectedPods' } ]);
 
-  // useFirestoreConnect([ { collection: 'users', doc: `${currentUser.uid}`, storeAs: '' } ]);
+  const [ offersFromPod, setOffersFromPod ] = useState({}); //retire soon...
+
+  const [ offersSelection, setOffersSelection ] = useState([]);
+  const [ offerTitle, setOfferTitle ] = useState('');
+  const podsList = useSelector(state => state.firestore.ordered.selectedPods);
+  // const podsArray = [ '4KwqIrA2Fam2rFSRjhtS', '7aJq6jRsca4vt2VLAhFH', 'P0DXdiE5Lg38jz83CYBF', 'WhHAswzmbXxtkoOjIO4H' ];
+
+  const handleSelectingPod = (all, pod) => {
+    if (all) {
+      setOffersSelection([]);
+      setOfferTitle('');
+    } else {
+      setOffersSelection([ pod.id ]);
+      setOfferTitle(pod.title);
+    }
+  };
 
   let renderList;
   let renderPodList;
-  const [ offersFromPod, setOffersFromPod ] = useState({});
 
   if (isLoaded(podsList)) {
-    renderPodList = <CurrentPods pods={podsList} onPodClick={setOffersFromPod} />;
-    if (offersFromPod.id) {
-      renderList = <OfferList thisPodId={offersFromPod.id} podName={offersFromPod.title} whenUpdateViewClick={props.updateViewState} />;
+    const podsArray = podsList.map(pod => pod.id);
+    renderPodList = <CurrentPods pods={podsList} onPodClick={handleSelectingPod} />;
+
+    if (offersSelection.length > 0) {
+      renderList = <OfferList podsIdArray={offersSelection} podName={offerTitle} whenUpdateViewClick={props.updateViewState} />;
     } else {
-      setOffersFromPod(podsList[0]);
+      setOffersSelection(podsArray);
+      setOfferTitle('All Pods');
     }
   }
 

@@ -5,7 +5,7 @@ import { useFirestoreConnect, isLoaded } from 'react-redux-firebase';
 import { useSelector } from 'react-redux';
 
 function OffersList(props) {
-  useFirestoreConnect([ { collection: 'offers', where: [ 'podId', '==', props.thisPodId ], storeAs: 'currentOffers' } ]);
+  useFirestoreConnect([ { collection: 'offers', where: [ 'podId', 'in', props.podsIdArray ], storeAs: 'currentOffers' } ]);
 
   const currentOffers = useSelector(state => state.firestore.ordered.currentOffers);
   let renderOffers;
