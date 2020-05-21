@@ -33,7 +33,7 @@ function Dashboard(props) {
   let renderList;
   let renderPodList;
 
-  if (isLoaded(podsList)) {
+  if (isLoaded(podsList) && podsList.length > 0) {
     const podsArray = podsList.map(pod => pod.id);
     renderPodList = <CurrentPods pods={podsList} onPodClick={handleSelectingPod} />;
 
@@ -43,6 +43,8 @@ function Dashboard(props) {
       setOffersSelection(podsArray);
       setOfferTitle('All Pods');
     }
+  } else {
+    renderPodList = 'You have not joined a Pod yet';
   }
 
   return (

@@ -24,7 +24,7 @@ function UserControl() {
       case 4:
         return <OfferEdit updateViewState={setViewState} />;
       default:
-        return <Dashboard />;
+        return <Dashboard updateViewState={setViewState} />;
     }
   };
   return (
