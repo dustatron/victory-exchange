@@ -9,7 +9,7 @@ import MyPods from './MyPods';
 
 import { GridLayout, LeftMenu, RightBody } from '../Layout/GlobalStyle';
 
-import { Container } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 
 function PodsList(props) {
   //////////////////// Click Handlers ////////////////////////
@@ -37,12 +37,16 @@ function PodsList(props) {
 
   return (
     <Container>
-      <GridLayout>
-        <LeftMenu>
-          <PodMenu onMenuClick={setViewState} />
-        </LeftMenu>
-        <RightBody>{renderView(viewState)}</RightBody>
-      </GridLayout>
+      <div style={{ margin: '10px 0' }}>
+        <Row>
+          <Col md={2}>
+            <PodMenu onMenuClick={setViewState} />
+          </Col>
+          <Col style={{ margin: '10px 0' }} md={9}>
+            {renderView(viewState)}
+          </Col>
+        </Row>
+      </div>
     </Container>
   );
 }

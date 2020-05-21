@@ -15,7 +15,7 @@ function CurrentPods(props) {
     <div>
       <Button
         style={buttonStyle}
-        variant='success'
+        variant='outline-secondary'
         onClick={() => {
           props.onPodClick(true);
         }}>

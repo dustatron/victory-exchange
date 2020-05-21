@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { useFirestore } from 'react-redux-firebase';
 import ImagePicker from '../../Shared/ImagePicker';
+import loadingImg from '../../../img/loader.gif';
 
 import { Card, Form, Button, Row, Col } from 'react-bootstrap';
 
@@ -10,11 +11,11 @@ export default function OfferEdit(props) {
   const thisOffer = useSelector(state => state.selectedOffer);
   const podsList = useSelector(state => state.firestore.ordered.selectedPods);
   const firestore = useFirestore();
-  const [ imageState, setImageState ] = useState('');
+  const [ imageState, setImageState ] = useState(' ');
 
-  if (imageState === '') {
+  useEffect(() => {
     setImageState(thisOffer.img);
-  }
+  }, []);
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -37,6 +38,13 @@ export default function OfferEdit(props) {
     firestore.delete({ collection: 'offers', doc: thisOffer.offerId });
     props.updateViewState(0);
   };
+
+  let imgPreview;
+  if (imageState.length > 1) {
+    imgPreview = imageState;
+  } else {
+    imgPreview = loadingImg;
+  }
 
   return (
     <Card>
@@ -90,17 +98,16 @@ export default function OfferEdit(props) {
           </Form.Group>
 
           <Form.Group>
-            <Form.Label>Search for an image</Form.Label>
+            <Card style={{ marginBottom: '10px' }}>
+              <Card.Body>
+                <h5 className='text-center'> Your Image </h5>
+                <div className='text-center'>
+                  <img style={{ width: '50%' }} src={imgPreview} />
+                </div>
+              </Card.Body>
+            </Card>
+            <h5 className='text-center'>Search for an image</h5>
             <ImagePicker updateImage={setImageState} />
-            <Form.Label> Image to Link</Form.Label>
-            <Form.Control
-              type='text'
-              name='img'
-              defaultValue={imageState}
-              onChange={event => {
-                setImageState(event.target.value);
-              }}
-            />
           </Form.Group>
           <Row>
             <Col>

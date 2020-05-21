@@ -4,13 +4,14 @@ import ImagePicker from '../../Shared/ImagePicker';
 import { Form, Card, Button } from 'react-bootstrap';
 import { useFirestore } from 'react-redux-firebase';
 import { useSelector } from 'react-redux';
+import loadingImg from '../../../img/loader.gif';
 
 function OfferCreate(props) {
   const offers = useFirestore().collection('offers');
   const user = useSelector(state => state.firebase.auth);
   const selectedPods = useSelector(state => state.firestore.ordered.selectedPods);
 
-  const [ imageState, setImageState ] = useState('');
+  const [ imageState, setImageState ] = useState(' ');
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -33,6 +34,13 @@ function OfferCreate(props) {
     offers.add(newOffer);
     props.updateViewState(0);
   };
+
+  let imgPreview;
+  if (imageState.length > 1) {
+    imgPreview = imageState;
+  } else {
+    imgPreview = loadingImg;
+  }
 
   return (
     <Card>
@@ -64,18 +72,18 @@ function OfferCreate(props) {
             </Form.Control>
           </Form.Group>
 
-          <Form.Group>
+          <Form.Group className='text-center'>
+            <Card style={{ marginBottom: '10px' }}>
+              <Card.Body>
+                <h5 className='text-center'> Your Image </h5>
+                <div className='text-center'>
+                  <img style={{ width: '50%' }} src={imgPreview} />
+                </div>
+              </Card.Body>
+            </Card>
+            <h5 className='text-center'>Search for an image</h5>
             <Form.Label>Search for an image</Form.Label>
             <ImagePicker updateImage={setImageState} />
-            <Form.Label> Image to Link</Form.Label>
-            <Form.Control
-              type='text'
-              name='img'
-              defaultValue={imageState}
-              onChange={event => {
-                setImageState(event.target.value);
-              }}
-            />
           </Form.Group>
 
           <Button variant='primary' type='submit'>

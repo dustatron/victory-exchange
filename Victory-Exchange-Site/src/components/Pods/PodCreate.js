@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import ImagePicker from '../Shared/ImagePicker';
 import { Form, Button, Card } from 'react-bootstrap';
+import loadingImg from '../../img/loader.gif';
 
 import { useFirestore } from 'react-redux-firebase';
 import { useSelector, useDispatch } from 'react-redux';
@@ -28,12 +29,19 @@ function PodCreate(props) {
       ownerId: currentUser.uid,
       ownerName: currentUser.displayName,
       ownerImg: currentUser.photoURL,
-      podImg: img.value,
+      podImg: imageState,
       users: [ currentUser.uid ]
     };
     podCollection.add(createPod);
     dispatch({ type: 'UPDATE_SELECTED', ...createPod });
     props.updateViewState(3);
+  }
+
+  let imgPreview;
+  if (imageState.length > 1) {
+    imgPreview = imageState;
+  } else {
+    imgPreview = loadingImg;
   }
 
   return (
@@ -68,17 +76,16 @@ function PodCreate(props) {
           <Form.Group>
             <Form.Label>Search For an image to represent your pod</Form.Label>
 
+            <Card style={{ marginBottom: '10px' }}>
+              <Card.Body>
+                <h5 className='text-center'> Your Image </h5>
+                <div className='text-center'>
+                  <img style={{ width: '50%' }} src={imgPreview} />
+                </div>
+              </Card.Body>
+            </Card>
+            <h5 className='text-center'>Search for an image</h5>
             <ImagePicker updateImage={setImageState} />
-            <Form.Label>Image Link</Form.Label>
-            <Form.Control
-              type='text'
-              name='img'
-              placeholder='An image to so others what this pod is all about.'
-              defaultValue={imageState}
-              onChange={event => {
-                setImageState(event.target.value);
-              }}
-            />
           </Form.Group>
 
           <Button variant='primary' type='submit'>

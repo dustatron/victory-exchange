@@ -71,7 +71,7 @@ function PodItemView(props) {
               </Button>
             ) : (
               <Button onClick={joinPod} variant='outline-success'>
-                Joind
+                Join
               </Button>
             )}
 

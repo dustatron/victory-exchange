@@ -131,6 +131,22 @@ function ImagePicker(props) {
             </Card.Body>
           </Card>
         </Tab>
+        <Tab eventKey='manual' title='Manual Link'>
+          <Card>
+            <Card.Body>
+              <InputGroup className='mb-3'>
+                <InputGroup.Prepend>
+                  <InputGroup.Text id='inputGroup-sizing-default'>Link to Image</InputGroup.Text>
+                </InputGroup.Prepend>
+                <FormControl
+                  onChange={event => {
+                    props.updateImage(event.target.value);
+                  }}
+                />
+              </InputGroup>
+            </Card.Body>
+          </Card>
+        </Tab>
       </Tabs>
     </div>
   );
