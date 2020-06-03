@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import ImagePicker from '../../Shared/ImagePicker';
 import { Form, Card, Button } from 'react-bootstrap';
@@ -8,12 +9,16 @@ import loadingImg from '../../../img/loader.gif';
 
 function OfferCreate(props) {
   const offers = useFirestore().collection('offers');
-  const user = useSelector(state => state.firebase.auth);
-  const selectedPods = useSelector(state => state.firestore.ordered.selectedPods);
+  const user = useSelector((state) => state.firebase.auth);
+  const selectedPods = useSelector(
+    (state) => state.firestore.ordered.selectedPods
+  );
 
-  const [ imageState, setImageState ] = useState(' ');
+  const history = useHistory();
 
-  const handleSubmit = event => {
+  const [imageState, setImageState] = useState(' ');
+
+  const handleSubmit = (event) => {
     event.preventDefault();
 
     const { title, details, img, pod } = event.target;
@@ -28,11 +33,12 @@ function OfferCreate(props) {
       img: imageState,
       createdAt: Date.now(),
       replies: [],
-      active: 0
+      active: 0,
     };
     console.log(newOffer);
     offers.add(newOffer);
-    props.updateViewState(0);
+    return history.push('/dashboard/my-offers');
+    // props.updateViewState(0);
   };
 
   let imgPreview;
@@ -51,18 +57,28 @@ function OfferCreate(props) {
         <Form onSubmit={handleSubmit}>
           <Form.Group>
             <Form.Label>Title</Form.Label>
-            <Form.Control type='text' name='title' placeholder='Name of your Pod.' autoComplete='title' />
+            <Form.Control
+              type='text'
+              name='title'
+              placeholder='Name of your Pod.'
+              autoComplete='title'
+            />
           </Form.Group>
 
           <Form.Group>
             <Form.Label>Details</Form.Label>
-            <Form.Control as='textarea' rows='3' name='details' placeholder='Give us all the details.' />
+            <Form.Control
+              as='textarea'
+              rows='3'
+              name='details'
+              placeholder='Give us all the details.'
+            />
           </Form.Group>
 
           <Form.Group>
             <Form.Label>Which Pod</Form.Label>
             <Form.Control as='select' name='pod' custom>
-              {selectedPods.map(pod => {
+              {selectedPods.map((pod) => {
                 return (
                   <option key={pod.id} value={pod.id}>
                     {pod.title}

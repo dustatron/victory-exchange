@@ -1,10 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Button } from 'react-bootstrap';
+import React from "react";
+import PropTypes from "prop-types";
+import { Button } from "react-bootstrap";
 
 function CurrentPods(props) {
   const buttonStyle = {
-    margin: '5px'
+    margin: "5px",
   };
 
   const handleClick = (isAll, pod) => {
@@ -22,7 +22,7 @@ function CurrentPods(props) {
         All Offers
       </Button>
 
-      {props.pods.map(pod => {
+      {props.pods.map((pod) => {
         return (
           <Button
             variant='outline-success'

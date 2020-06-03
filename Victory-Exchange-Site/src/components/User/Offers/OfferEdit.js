@@ -4,20 +4,22 @@ import { useSelector } from 'react-redux';
 import { useFirestore } from 'react-redux-firebase';
 import ImagePicker from '../../Shared/ImagePicker';
 import loadingImg from '../../../img/loader.gif';
+import { useHistory } from 'react-router-dom';
 
 import { Card, Form, Button, Row, Col } from 'react-bootstrap';
 
 export default function OfferEdit(props) {
-  const thisOffer = useSelector(state => state.selectedOffer);
-  const podsList = useSelector(state => state.firestore.ordered.selectedPods);
+  const history = useHistory();
+  const thisOffer = useSelector((state) => state.selectedOffer);
+  const podsList = useSelector((state) => state.firestore.ordered.selectedPods);
   const firestore = useFirestore();
-  const [ imageState, setImageState ] = useState(' ');
+  const [imageState, setImageState] = useState(' ');
 
   useEffect(() => {
     setImageState(thisOffer.img);
   }, []);
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     const { title, details, img, active, pod } = event.target;
     const podName = podsList[pod.options.selectedIndex].title;
@@ -28,15 +30,20 @@ export default function OfferEdit(props) {
       img: imageState,
       active: active.value,
       podId: pod.value,
-      podName: podName
+      podName: podName,
     };
-    firestore.update({ collection: 'offers', doc: thisOffer.offerId }, updateOffer);
-    props.updateViewState(0);
+    firestore.update(
+      { collection: 'offers', doc: thisOffer.offerId },
+      updateOffer
+    );
+    return history.push('/dashboard/my-offers');
+    // props.updateViewState(0);
   };
 
   const handleDelete = () => {
     firestore.delete({ collection: 'offers', doc: thisOffer.offerId });
-    props.updateViewState(0);
+    return history.push('/dashboard/my-offers');
+    // props.updateViewState(0);
   };
 
   let imgPreview;
@@ -53,7 +60,9 @@ export default function OfferEdit(props) {
           <Col xs={9}>
             <h2>{thisOffer.title}</h2>
           </Col>
-          <Col>Posted at: {new Date(thisOffer.createdAt).toLocaleDateString()}</Col>
+          <Col>
+            Posted at: {new Date(thisOffer.createdAt).toLocaleDateString()}
+          </Col>
         </Row>
       </Card.Header>
 
@@ -61,24 +70,41 @@ export default function OfferEdit(props) {
         <Form onSubmit={handleSubmit}>
           <Form.Group>
             <Form.Label>Title</Form.Label>
-            <Form.Control type='text' name='title' defaultValue={thisOffer.title} />
+            <Form.Control
+              type='text'
+              name='title'
+              defaultValue={thisOffer.title}
+            />
           </Form.Group>
 
           <Form.Group>
             <Form.Label>Details</Form.Label>
-            <Form.Control as='textarea' rows='3' name='details' defaultValue={thisOffer.details} />
+            <Form.Control
+              as='textarea'
+              rows='3'
+              name='details'
+              defaultValue={thisOffer.details}
+            />
           </Form.Group>
 
           <Form.Group>
-            <Form.Label>Current Status : {thisOffer.active ? 'Active' : 'Close'}</Form.Label>
+            <Form.Label>
+              Current Status : {thisOffer.active ? 'Active' : 'Close'}
+            </Form.Label>
             <Form.Control as='select' name='active' custom>
-              <option selected={thisOffer.active === '0' ? 'selected' : ''} value={0}>
+              <option
+                selected={thisOffer.active === '0' ? 'selected' : ''}
+                value={0}>
                 Active
               </option>
-              <option selected={thisOffer.active === '1' ? 'selected' : ''} value={1}>
+              <option
+                selected={thisOffer.active === '1' ? 'selected' : ''}
+                value={1}>
                 Pending
               </option>
-              <option selected={thisOffer.active === '2' ? 'selected' : ''} value={2}>
+              <option
+                selected={thisOffer.active === '2' ? 'selected' : ''}
+                value={2}>
                 Closed
               </option>
             </Form.Control>
@@ -87,7 +113,7 @@ export default function OfferEdit(props) {
           <Form.Group>
             <Form.Label>Which Pod</Form.Label>
             <Form.Control as='select' name='pod' custom>
-              {podsList.map(pod => {
+              {podsList.map((pod) => {
                 return (
                   <option key={pod.id} value={pod.id}>
                     {pod.title}
@@ -128,5 +154,5 @@ export default function OfferEdit(props) {
 }
 
 OfferEdit.propTypes = {
-  updateViewState: PropTypes.func
+  updateViewState: PropTypes.func,
 };

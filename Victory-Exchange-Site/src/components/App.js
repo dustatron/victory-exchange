@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Card, Spinner, Container, Row, Col } from 'react-bootstrap';
 
@@ -24,10 +24,11 @@ function App(props) {
     display: 'flex',
     height: '100%',
     width: '100%',
-    background: 'linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(255,255,255,1) 78%)',
+    background:
+      'linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(255,255,255,1) 78%)',
     justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'column'
+    flexDirection: 'column',
   };
 
   const loaderBoxStyle = {
@@ -35,22 +36,31 @@ function App(props) {
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   };
 
   if (auth.isLoaded) {
     return (
       <Router>
         <Layout login={notSignedIt}>
-          <Route exact path="/home" component={Home} />
+          <Route exact path='/home' component={Home} />
           {/* <Redirect exact from={'/'} to={'/home'} /> */}
-          <Route exact path="/" component={Home} />
-          <Route path="/contact" component={Contact} />
-          <Route path="/login" component={Login} />
-
-          {/* PRIVATE ROUTE  */}
-          <PrivateRoute path="/dashboard" authenticated={notSignedIt} component={UserControl} />
-          <PrivateRoute path="/findpods" authenticated={notSignedIt} component={PodControl} />
+          <Route exact path='/' component={Home} />
+          <Route path='/contact' component={Contact} />
+          <Route path='/login' component={Login} />
+          <Switch>
+            {/* PRIVATE ROUTE  */}
+            <PrivateRoute
+              path='/dashboard'
+              authenticated={notSignedIt}
+              component={UserControl}
+            />
+            <PrivateRoute
+              path='/findpods'
+              authenticated={notSignedIt}
+              component={PodControl}
+            />
+          </Switch>
         </Layout>
       </Router>
     );
@@ -63,18 +73,19 @@ function App(props) {
             <div style={loaderBoxStyle}>
               <Card style={{ width: '75%', height: '50%' }}>
                 <Card.Header>
-                  <Card.Title className="text-center">Victory Exchange is Loading</Card.Title>
+                  <Card.Title className='text-center'>
+                    Victory Exchange is Loading
+                  </Card.Title>
                 </Card.Header>
-                <div style={loadingBoxStyle} className="text-center">
+                <div style={loadingBoxStyle} className='text-center'>
                   <Spinner
-                    animation="border"
-                    role="status"
-                    size="lg"
-                    className="text-center"
-                    size="lg"
-                    variant="primary"
-                  >
-                    <span className="sr-only">Loading...</span>
+                    animation='border'
+                    role='status'
+                    size='lg'
+                    className='text-center'
+                    size='lg'
+                    variant='primary'>
+                    <span className='sr-only'>Loading...</span>
                   </Spinner>
                 </div>
               </Card>
@@ -92,7 +103,7 @@ App = connect(
   ({ firebase: { auth, profile, uid } }) => ({
     auth,
     profile,
-    uid
+    uid,
   })
 )(App);
 export default App;

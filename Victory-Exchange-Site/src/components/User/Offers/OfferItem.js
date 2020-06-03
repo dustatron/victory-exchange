@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import OfferReplies from './OfferReplies';
 import MakeReply from './MakeReply';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import { v4 } from 'uuid';
 import { Card, Row, Col, ListGroup, Button } from 'react-bootstrap';
@@ -11,8 +12,9 @@ import { GlobalStyel } from '../../Layout/GlobalStyle';
 
 function OfferItem(props) {
   const dispatch = useDispatch();
-  const user = useSelector(state => state.firebase.auth);
-  const [ showReply, setShowReply ] = useState(false);
+  const history = useHistory();
+  const user = useSelector((state) => state.firebase.auth);
+  const [showReply, setShowReply] = useState(false);
 
   const Spacer = styled.div`
     margin: 15px 0;
@@ -21,9 +23,14 @@ function OfferItem(props) {
 
   const { offer } = props;
   const handleEditButton = () => {
-    const action = { type: 'UPDATE_SELECT_OFFER', ...offer, ...{ offerId: offer.id } };
+    const action = {
+      type: 'UPDATE_SELECT_OFFER',
+      ...offer,
+      ...{ offerId: offer.id },
+    };
     dispatch(action);
-    props.onUpdateViewState(4);
+    return history.push('/dashboard/edit');
+    // props.onUpdateViewState(4);
   };
 
   let renderEditButton;
@@ -73,10 +80,15 @@ function OfferItem(props) {
             </Col>
           </Row>
           <Row>
-            <Col sm={12} md={{ span: 10, offset: 1 }} style={{ margin: '10px auto' }}>
+            <Col
+              sm={12}
+              md={{ span: 10, offset: 1 }}
+              style={{ margin: '10px auto' }}>
               <ListGroup horizontal={'lg'}>
                 <ListGroup.Item>Pod : {offer.podName}</ListGroup.Item>
-                <ListGroup.Item>Posted on : {new Date(offer.createdAt).toLocaleDateString()}</ListGroup.Item>
+                <ListGroup.Item>
+                  Posted on : {new Date(offer.createdAt).toLocaleDateString()}
+                </ListGroup.Item>
                 <ListGroup.Item>{status()}</ListGroup.Item>
                 <ListGroup.Item>
                   <Button
@@ -113,6 +125,6 @@ function OfferItem(props) {
 
 OfferItem.propTypes = {
   onUpdateViewState: PropTypes.func,
-  offer: PropTypes.object
+  offer: PropTypes.object,
 };
 export default OfferItem;

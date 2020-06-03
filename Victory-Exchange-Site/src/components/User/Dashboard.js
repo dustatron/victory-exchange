@@ -9,23 +9,29 @@ import { isLoaded, useFirestoreConnect } from 'react-redux-firebase';
 import { Card } from 'react-bootstrap';
 
 function Dashboard(props) {
-  const profile = useSelector(state => state.firebase.profile);
-  const currentUser = useSelector(state => state.firebase.auth);
+  const profile = useSelector((state) => state.firebase.profile);
+  const currentUser = useSelector((state) => state.firebase.auth);
 
-  useFirestoreConnect([ { collection: 'pods', where: [ 'users', 'array-contains', currentUser.uid ], storeAs: 'selectedPods' } ]);
+  useFirestoreConnect([
+    {
+      collection: 'pods',
+      where: ['users', 'array-contains', currentUser.uid],
+      storeAs: 'selectedPods',
+    },
+  ]);
 
-  const [ offersFromPod, setOffersFromPod ] = useState({}); //retire soon...
+  // const [ offersFromPod, setOffersFromPod ] = useState({}); //retire soon...
 
-  const [ offersSelection, setOffersSelection ] = useState([]);
-  const [ offerTitle, setOfferTitle ] = useState('');
-  const podsList = useSelector(state => state.firestore.ordered.selectedPods);
+  const [offersSelection, setOffersSelection] = useState([]);
+  const [offerTitle, setOfferTitle] = useState('');
+  const podsList = useSelector((state) => state.firestore.ordered.selectedPods);
 
   const handleSelectingPod = (all, pod) => {
     if (all) {
       setOffersSelection([]);
       setOfferTitle('');
     } else {
-      setOffersSelection([ pod.id ]);
+      setOffersSelection([pod.id]);
       setOfferTitle(pod.title);
     }
   };
@@ -34,11 +40,19 @@ function Dashboard(props) {
   let renderPodList;
 
   if (isLoaded(podsList) && podsList.length > 0) {
-    const podsArray = podsList.map(pod => pod.id);
-    renderPodList = <CurrentPods pods={podsList} onPodClick={handleSelectingPod} />;
+    const podsArray = podsList.map((pod) => pod.id);
+    renderPodList = (
+      <CurrentPods pods={podsList} onPodClick={handleSelectingPod} />
+    );
 
     if (offersSelection.length > 0) {
-      renderList = <OfferList podsIdArray={offersSelection} podName={offerTitle} whenUpdateViewClick={props.updateViewState} />;
+      renderList = (
+        <OfferList
+          podsIdArray={offersSelection}
+          podName={offerTitle}
+          whenUpdateViewClick={props.updateViewState}
+        />
+      );
     } else {
       setOffersSelection(podsArray);
       setOfferTitle('All Pods');
@@ -50,13 +64,15 @@ function Dashboard(props) {
   return (
     <React.Fragment>
       <Card>
-        <Card.Header>{renderPodList ? renderPodList : 'Loading...'}</Card.Header>
+        <Card.Header>
+          {renderPodList ? renderPodList : 'Loading...'}
+        </Card.Header>
         <Card.Body>{renderList ? renderList : 'Loading...'}</Card.Body>
       </Card>
     </React.Fragment>
   );
 }
 Dashboard.propTypes = {
-  updateViewState: PropTypes.func
+  updateViewState: PropTypes.func,
 };
 export default Dashboard;
