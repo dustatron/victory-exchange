@@ -6,15 +6,24 @@ import * as serviceWorker from './serviceWorker';
 import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
 import { createFirestoreInstance } from 'redux-firestore';
 import firebase from './firebase';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import { Provider } from 'react-redux';
 import rootReducer from './reducers';
+import thunk from 'redux-thunk';
 import 'firebase/auth';
 import 'firebase/firestore';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 
-const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const middleWare = [thunk];
+const intialState = {};
+
+const store = createStore(
+  rootReducer,
+  intialState,
+  composeWithDevTools(applyMiddleware(...middleWare))
+);
 
 // Firebase config
 const rrfProps = {
@@ -22,10 +31,10 @@ const rrfProps = {
   config: {
     userProfile: 'users',
     useFirestoreForProfile: true,
-    attachAuthIsReady: true
+    attachAuthIsReady: true,
   },
   dispatch: store.dispatch,
-  createFirestoreInstance
+  createFirestoreInstance,
 };
 
 ReactDOM.render(

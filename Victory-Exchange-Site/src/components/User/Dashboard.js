@@ -10,7 +10,7 @@ import { Card } from 'react-bootstrap';
 import OfferList from './Offers/OffersList';
 import CurrentPods from './Offers/CurrentPods';
 
-function Dashboard({ currentUser, podsList }) {
+function Dashboard({ fullListOfUsersPods, currentOffers }) {
   const [offersSelection, setOffersSelection] = useState([]);
   const [offerTitle, setOfferTitle] = useState('');
 
@@ -24,46 +24,54 @@ function Dashboard({ currentUser, podsList }) {
     }
   };
 
-  let renderList;
-  let renderPodList;
+  let renderUsersPods;
 
-  if (isLoaded(podsList) && podsList.length > 0) {
-    const podsArray = podsList.map((pod) => pod.id);
-    renderPodList = (
-      <CurrentPods pods={podsList} onPodClick={handleSelectingPod} />
+  if (isLoaded(fullListOfUsersPods) && fullListOfUsersPods.length > 0) {
+    // Grab list of pod Ids
+    const ListOfPodId = fullListOfUsersPods.map((pod) => pod.id);
+
+    renderUsersPods = (
+      <CurrentPods pods={fullListOfUsersPods} onPodClick={handleSelectingPod} />
     );
 
-    if (offersSelection.length > 0) {
-      renderList = (
-        <OfferList podsIdArray={offersSelection} podName={offerTitle} />
-      );
-    } else {
-      setOffersSelection(podsArray);
+    // Set to Show All
+    if (offersSelection.length === 0) {
+      setOffersSelection(ListOfPodId);
       setOfferTitle('All Pods');
     }
   } else {
-    renderPodList = 'You have not joined a Pod yet';
+    renderUsersPods = 'You have not joined a Pod yet';
   }
 
   return (
     <React.Fragment>
       <Card>
         <Card.Header>
-          {renderPodList ? renderPodList : 'Loading...'}
+          {renderUsersPods ? renderUsersPods : 'Loading...'}
         </Card.Header>
-        <Card.Body>{renderList ? renderList : 'Loading...'}</Card.Body>
+        <Card.Body>
+          {offersSelection.length > 0 ? (
+            <OfferList podsIdArray={offersSelection} podName={offerTitle} />
+          ) : (
+            'Loading...'
+          )}
+        </Card.Body>
       </Card>
     </React.Fragment>
   );
 }
+
+// Component Setup
+
 Dashboard.propTypes = {
   currentUser: PropTypes.object.isRequired,
-  podsList: PropTypes.array.isRequired,
+  fullListOfUsersPods: PropTypes.array.isRequired,
 };
 
 const mapStateProps = (state) => ({
   currentUser: state.firebase.auth,
-  podsList: state.firestore.ordered.selectedPods,
+  currentOffers: state.firestore.data.currentOffers,
+  fullListOfUsersPods: state.firestore.ordered.selectedPods,
 });
 
 export default compose(

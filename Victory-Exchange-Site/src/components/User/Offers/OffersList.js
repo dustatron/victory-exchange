@@ -1,31 +1,52 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+// Redux
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { firestoreConnect } from 'react-redux-firebase';
+// Component
 import OfferItem from './OfferItem';
-import { useFirestoreConnect, isLoaded } from 'react-redux-firebase';
-import { useSelector } from 'react-redux';
 
-function OffersList(props) {
-  useFirestoreConnect([ { collection: 'offers', where: [ 'podId', 'in', props.podsIdArray ], storeAs: 'currentOffers' } ]);
-
-  const currentOffers = useSelector(state => state.firestore.ordered.currentOffers);
-  let renderOffers;
-  if (isLoaded(currentOffers)) {
-    renderOffers = currentOffers.map(offer => {
-      return <OfferItem key={offer.id} offer={offer} onUpdateViewState={props.whenUpdateViewClick} />;
-    });
+function OffersList({ currentOffers, whenUpdateViewClick, podName }) {
+  if (currentOffers) {
+    return (
+      <div>
+        <h2 className='text-center'>{podName}</h2>
+        <hr />
+        {currentOffers.length > 0 ? (
+          currentOffers.map((offer) => (
+            <OfferItem
+              key={offer.id}
+              offer={offer}
+              onUpdateViewState={whenUpdateViewClick}
+            />
+          ))
+        ) : (
+          <p className='text-center'> No offers yet </p>
+        )}
+      </div>
+    );
+  } else {
+    return 'loading...';
   }
-
-  return (
-    <div>
-      <h2> {props.podName}</h2>
-      <hr />
-      {renderOffers}
-    </div>
-  );
 }
 
+// Component Setup
 OffersList.propTypes = {
-  whenUpdateViewClick: PropTypes.func
+  whenUpdateViewClick: PropTypes.func,
 };
 
-export default OffersList;
+const mapStateToProps = (state) => ({
+  currentOffers: state.firestore.ordered.currentOffers,
+});
+
+export default compose(
+  firestoreConnect((props) => [
+    {
+      collection: 'offers',
+      where: ['podId', 'in', props.podsIdArray],
+      storeAs: 'currentOffers',
+    },
+  ]),
+  connect(mapStateToProps)
+)(OffersList);
