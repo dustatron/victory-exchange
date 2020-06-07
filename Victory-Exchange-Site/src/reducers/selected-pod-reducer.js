@@ -1,5 +1,3 @@
-import React from 'react';
-
 function selectedPodReducer(state = '', action) {
   const {
     podId,
@@ -12,7 +10,7 @@ function selectedPodReducer(state = '', action) {
     location,
     description,
     createdAt,
-    users
+    users,
   } = action;
 
   switch (action.type) {
@@ -28,7 +26,7 @@ function selectedPodReducer(state = '', action) {
         location,
         description,
         createdAt,
-        users
+        users,
       };
     case 'ClEAR_SELECTED':
       return '';

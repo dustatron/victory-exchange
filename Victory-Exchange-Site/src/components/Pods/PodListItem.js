@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 //Style
-import { Card, ListGroup, ListGroupItem, Spinner, Col, Row } from 'react-bootstrap';
+import { Card, ListGroup, ListGroupItem, Col, Row } from 'react-bootstrap';
 import { GlobalStyel } from '../Layout/GlobalStyle';
 import styled from 'styled-components';
 
@@ -24,7 +24,9 @@ function PodListItem(props) {
         <Card.Header />
         <Card.Body>
           <Card.Title>{pod.title}</Card.Title>
-          <Card.Subtitle className='mb-2 text-muted'>{pod.tagLine}</Card.Subtitle>
+          <Card.Subtitle className='mb-2 text-muted'>
+            {pod.tagLine}
+          </Card.Subtitle>
           <hr />
           <Row>
             <Col sm={3}>
@@ -34,7 +36,9 @@ function PodListItem(props) {
               <Card.Text>{pod.description}</Card.Text>
               <ListGroup className='list-group-flush'>
                 <ListGroupItem>Location: {pod.location}</ListGroupItem>
-                <ListGroupItem>Created on: {new Date(pod.createdAt).toLocaleDateString()}</ListGroupItem>
+                <ListGroupItem>
+                  Created on: {new Date(pod.createdAt).toLocaleDateString()}
+                </ListGroupItem>
               </ListGroup>
             </Col>
           </Row>
@@ -46,7 +50,7 @@ function PodListItem(props) {
 
 PodListItem.propTypes = {
   onPodClick: PropTypes.func,
-  pod: PropTypes.object
+  pod: PropTypes.object,
 };
 
 export default PodListItem;

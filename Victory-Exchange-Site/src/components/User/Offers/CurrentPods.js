@@ -1,14 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Button } from "react-bootstrap";
+import React from 'react';
+import { Button } from 'react-bootstrap';
 
 function CurrentPods(props) {
   const buttonStyle = {
-    margin: "5px",
-  };
-
-  const handleClick = (isAll, pod) => {
-    props.onPodClick(isAll, pod);
+    margin: '5px',
   };
 
   return (
@@ -38,7 +33,5 @@ function CurrentPods(props) {
     </div>
   );
 }
-
-CurrentPods.propTypes = {};
 
 export default CurrentPods;

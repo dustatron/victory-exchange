@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { GlobalStyel, MenuBox, MenuItem } from '../Layout/GlobalStyle';
+import { MenuBox, MenuItem } from '../Layout/GlobalStyle';
 import { Col, Row } from 'react-bootstrap';
 
 function PodMenu(props) {
@@ -40,7 +40,7 @@ function PodMenu(props) {
 }
 
 PodMenu.propTypes = {
-  onMenuClick: PropTypes.func
+  onMenuClick: PropTypes.func,
 };
 
 export default PodMenu;

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
 import PodSearch from './PodSearch';
 import PodCreate from './PodCreate';
 import PodDetails from './PodDetails';
@@ -7,18 +6,15 @@ import PodList from './PodList';
 import PodMenu from './PodMenu';
 import MyPods from './MyPods';
 
-import { GridLayout, LeftMenu, RightBody } from '../Layout/GlobalStyle';
-
 import { Container, Row, Col } from 'react-bootstrap';
 
 function PodsList(props) {
   //////////////////// Click Handlers ////////////////////////
 
-  const [ viewState, setViewState ] = useState(0);
+  const [viewState, setViewState] = useState(0);
   // const [ selectedPodState, setSelectedPodState ] = useState({}); // retire
-  const selectedPod = useSelector(state => state.selectedPod);
 
-  const renderView = view => {
+  const renderView = (view) => {
     switch (view) {
       case 0:
         return <PodList upDateViewState={setViewState} />;

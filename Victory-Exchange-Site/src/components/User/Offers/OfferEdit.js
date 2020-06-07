@@ -17,11 +17,11 @@ export default function OfferEdit(props) {
 
   useEffect(() => {
     setImageState(thisOffer.img);
-  }, []);
+  }, [thisOffer.img]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const { title, details, img, active, pod } = event.target;
+    const { title, details, active, pod } = event.target;
     const podName = podsList[pod.options.selectedIndex].title;
 
     const updateOffer = {
@@ -128,7 +128,11 @@ export default function OfferEdit(props) {
               <Card.Body>
                 <h5 className='text-center'> Your Image </h5>
                 <div className='text-center'>
-                  <img style={{ width: '50%' }} src={imgPreview} />
+                  <img
+                    style={{ width: '50%' }}
+                    src={imgPreview}
+                    alt='preview'
+                  />
                 </div>
               </Card.Body>
             </Card>

@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import firebase from 'firebase';
-import { GlobalStyel } from '../Layout/GlobalStyle';
 
 function Header(props) {
   // const navStyle = {
@@ -11,7 +10,11 @@ function Header(props) {
   //   boxShadow: '0px 8px 10px rgba(0, 0, 0, 0.05)'
   // };
   return (
-    <Navbar collapseOnSelect expand='lg' variant='light' style={{ background: 'white' }}>
+    <Navbar
+      collapseOnSelect
+      expand='lg'
+      variant='light'
+      style={{ background: 'white' }}>
       <Container>
         <Navbar.Brand as={Link} to='/Home'>
           Victory Exchange

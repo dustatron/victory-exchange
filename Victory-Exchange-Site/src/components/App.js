@@ -14,7 +14,7 @@ import Layout from './Layout/Layout';
 import UserControl from './User/UserControl';
 
 import PodControl from './Pods/PodControl';
-import OffersList from './User/Offers/OffersList';
+// import OffersList from './User/Offers/OffersList';
 
 function App(props) {
   const auth = props.auth;
@@ -83,7 +83,6 @@ function App(props) {
                     role='status'
                     size='lg'
                     className='text-center'
-                    size='lg'
                     variant='primary'>
                     <span className='sr-only'>Loading...</span>
                   </Spinner>

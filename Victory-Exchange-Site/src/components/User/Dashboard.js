@@ -9,7 +9,6 @@ import { isLoaded, useFirestoreConnect } from 'react-redux-firebase';
 import { Card } from 'react-bootstrap';
 
 function Dashboard(props) {
-  const profile = useSelector((state) => state.firebase.profile);
   const currentUser = useSelector((state) => state.firebase.auth);
 
   useFirestoreConnect([

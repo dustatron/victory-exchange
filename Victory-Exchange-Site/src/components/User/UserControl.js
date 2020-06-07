@@ -12,7 +12,7 @@ import { MenuBox, MenuItem } from './../Layout/GlobalStyle';
 
 function UserControl() {
   // Testing nested routes
-  let { path, url } = useRouteMatch();
+  let { path } = useRouteMatch();
 
   return (
     <Container>

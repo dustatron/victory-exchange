@@ -21,7 +21,7 @@ function OfferCreate(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const { title, details, img, pod } = event.target;
+    const { title, details, pod } = event.target;
     const podName = selectedPods[pod.options.selectedIndex].title;
     const newOffer = {
       podId: pod.value,
@@ -93,7 +93,11 @@ function OfferCreate(props) {
               <Card.Body>
                 <h5 className='text-center'> Your Image </h5>
                 <div className='text-center'>
-                  <img style={{ width: '50%' }} src={imgPreview} />
+                  <img
+                    style={{ width: '50%' }}
+                    src={imgPreview}
+                    alt='preview'
+                  />
                 </div>
               </Card.Body>
             </Card>
