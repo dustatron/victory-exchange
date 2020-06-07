@@ -1,29 +1,18 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+// Redux
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { firestoreConnect, isLoaded } from 'react-redux-firebase';
+// Styling imports
+import { Card } from 'react-bootstrap';
+// Components
 import OfferList from './Offers/OffersList';
 import CurrentPods from './Offers/CurrentPods';
-import { useSelector } from 'react-redux';
-import { isLoaded, useFirestoreConnect } from 'react-redux-firebase';
 
-//Styling imports
-import { Card } from 'react-bootstrap';
-
-function Dashboard(props) {
-  const currentUser = useSelector((state) => state.firebase.auth);
-
-  useFirestoreConnect([
-    {
-      collection: 'pods',
-      where: ['users', 'array-contains', currentUser.uid],
-      storeAs: 'selectedPods',
-    },
-  ]);
-
-  // const [ offersFromPod, setOffersFromPod ] = useState({}); //retire soon...
-
+function Dashboard({ currentUser, podsList }) {
   const [offersSelection, setOffersSelection] = useState([]);
   const [offerTitle, setOfferTitle] = useState('');
-  const podsList = useSelector((state) => state.firestore.ordered.selectedPods);
 
   const handleSelectingPod = (all, pod) => {
     if (all) {
@@ -46,11 +35,7 @@ function Dashboard(props) {
 
     if (offersSelection.length > 0) {
       renderList = (
-        <OfferList
-          podsIdArray={offersSelection}
-          podName={offerTitle}
-          whenUpdateViewClick={props.updateViewState}
-        />
+        <OfferList podsIdArray={offersSelection} podName={offerTitle} />
       );
     } else {
       setOffersSelection(podsArray);
@@ -72,6 +57,22 @@ function Dashboard(props) {
   );
 }
 Dashboard.propTypes = {
-  updateViewState: PropTypes.func,
+  currentUser: PropTypes.object.isRequired,
+  podsList: PropTypes.array.isRequired,
 };
-export default Dashboard;
+
+const mapStateProps = (state) => ({
+  currentUser: state.firebase.auth,
+  podsList: state.firestore.ordered.selectedPods,
+});
+
+export default compose(
+  connect(mapStateProps),
+  firestoreConnect((props) => [
+    {
+      collection: 'pods',
+      where: ['users', 'array-contains', props.currentUser.uid],
+      storeAs: 'selectedPods',
+    },
+  ])
+)(Dashboard);
