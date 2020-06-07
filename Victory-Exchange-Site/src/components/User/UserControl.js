@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Dashboard from './Dashboard';
 import ProfileDetails from './Profiles/ProfileDetails';
 import MyOffers from './Offers/MyOffers';
@@ -11,27 +11,9 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { MenuBox, MenuItem } from './../Layout/GlobalStyle';
 
 function UserControl() {
-  const [viewState, setViewState] = useState(0);
   // Testing nested routes
   let { path, url } = useRouteMatch();
 
-  // retire this function... using react router instead
-  const renderView = (view) => {
-    switch (view) {
-      case 0:
-        return <Dashboard updateViewState={setViewState} />;
-      case 1:
-        return <OfferCreate updateViewState={setViewState} />;
-      case 2:
-        return <MyOffers updateViewState={setViewState} />;
-      case 3:
-        return <ProfileDetails />;
-      case 4:
-        return <OfferEdit updateViewState={setViewState} />;
-      default:
-        return <Dashboard updateViewState={setViewState} />;
-    }
-  };
   return (
     <Container>
       <div style={{ margin: '10px 0' }}>
@@ -63,16 +45,16 @@ function UserControl() {
                 component={ProfileDetails}
               />
               <Route exact path={`${path}/my-offers`}>
-                <MyOffers updateViewState={setViewState} />
+                <MyOffers />
               </Route>
               <Route exact path={`${path}/make-offer`}>
-                <OfferCreate updateViewState={setViewState} />
+                <OfferCreate />
               </Route>
               <Route exact path={`${path}`}>
-                <Dashboard updateViewState={setViewState} />
+                <Dashboard />
               </Route>
               <Route exact path={`${path}/edit`}>
-                <OfferEdit updateViewState={setViewState} />
+                <OfferEdit />
               </Route>
             </Switch>
             {/* {renderView(viewState)} */}
