@@ -14,20 +14,27 @@ function OfferReplys(props) {
     <div>
       <div>{props.replies.length} Replies</div>
 
-      {props.replies.map(reply => {
+      {props.replies.map((reply) => {
         return (
-          <CardSyle>
-            <Card key={reply.replyId}>
+          <CardSyle key={reply.replyId}>
+            <Card>
               <Card.Body>
                 <Row>
                   <Col lg={2} md={4} className='text-center'>
-                    <Image src={reply.photoURL} roundedCircle style={{ width: '60%' }} />
+                    <Image
+                      src={reply.photoURL}
+                      roundedCircle
+                      style={{ width: '60%' }}
+                    />
                   </Col>
                   <Col lg={5} md={8}>
                     <h4 className='text-center'>{reply.userName} </h4>
                   </Col>
                   <Col>
-                    <Card.Subtitle className='mb-2 text-muted text-center'>Posted at :{new Date(reply.createdAt).toLocaleDateString()}</Card.Subtitle>
+                    <Card.Subtitle className='mb-2 text-muted text-center'>
+                      Posted at :
+                      {new Date(reply.createdAt).toLocaleDateString()}
+                    </Card.Subtitle>
                   </Col>
                 </Row>
                 <hr />
@@ -46,7 +53,7 @@ function OfferReplys(props) {
 }
 
 OfferReplys.propTypes = {
-  replies: PropTypes.array
+  replies: PropTypes.array,
 };
 
 export default OfferReplys;

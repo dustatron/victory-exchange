@@ -1,6 +1,7 @@
 import React from 'react';
 import Dashboard from './Dashboard';
 import ProfileDetails from './Profiles/ProfileDetails';
+import ProfileEdit from './Profiles/ProfileEdit';
 import MyOffers from './Offers/MyOffers';
 import OfferEdit from './Offers/OfferEdit';
 import OfferCreate from './Offers/OfferCreate';
@@ -55,6 +56,9 @@ function UserControl() {
               </Route>
               <Route exact path={`${path}/edit`}>
                 <OfferEdit />
+              </Route>
+              <Route exact path={`${path}/profile/edit`}>
+                <ProfileEdit />
               </Route>
             </Switch>
             {/* {renderView(viewState)} */}

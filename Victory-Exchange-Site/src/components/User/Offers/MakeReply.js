@@ -7,21 +7,25 @@ import { v4 } from 'uuid';
 
 function MakeReply(props) {
   const firestore = useFirestore();
-  const currentUser = useSelector(state => state.firebase.auth);
-  const [ inputState, setInputState ] = useState('');
+  const currentUser = useSelector((state) => state.firebase.auth);
+  const profile = useSelector((state) => state.firebase.profile);
+  const [inputState, setInputState] = useState('');
 
   const handleClick = () => {
     const thisReply = {
       replyId: v4(),
       userId: currentUser.uid,
-      userName: currentUser.displayName,
-      photoURL: currentUser.photoURL,
+      userName: profile.displayName,
+      photoURL: profile.avatarUrl,
       message: inputState,
-      createdAt: Date.now()
+      createdAt: Date.now(),
     };
-    const newReplies = [ ...props.offerReplies, thisReply ];
+    const newReplies = [...props.offerReplies, thisReply];
     console.log('offerId', props.offerId);
-    firestore.update({ collection: 'offers', doc: props.offerId }, { replies: newReplies });
+    firestore.update(
+      { collection: 'offers', doc: props.offerId },
+      { replies: newReplies }
+    );
   };
 
   return (
@@ -29,7 +33,7 @@ function MakeReply(props) {
       <InputGroup className='mb-3'>
         <FormControl
           placeholder='reply-box'
-          onChange={event => {
+          onChange={(event) => {
             setInputState(event.target.value);
           }}
         />
@@ -44,6 +48,6 @@ function MakeReply(props) {
 }
 MakeReply.propTypes = {
   offerId: PropTypes.string,
-  offerReplies: PropTypes.array
+  offerReplies: PropTypes.array,
 };
 export default MakeReply;
