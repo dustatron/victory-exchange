@@ -144,9 +144,14 @@
   margin: 0.6rem;
   height: 53%;
   overflow: hidden;
+  position: relative;
 }
 
 .garden img {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
   width: 100%;
 }
 
@@ -165,7 +170,7 @@
   }
 
   .row1--center-box {
-    margin: 1rem;
+    width: 100%;
   }
 
   .row1--right {
@@ -201,7 +206,7 @@
     background-color: #fff;
     /* margin-top: 2rem; */
     padding: 15px;
-    // height: 30vh;
+    min-height: 100%;
     width: 100%;
   }
 }

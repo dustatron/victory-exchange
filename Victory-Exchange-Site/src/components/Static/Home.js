@@ -19,7 +19,7 @@ function Home(props) {
       </div>
       <Container>
         <Row>
-          <Col md={6} lg={6} className='row1--center'>
+          <Col md={6} className='row1--center'>
             <div className='row1--center-box'>
               <div className='center-box--top'>
                 <h4>Share what you grow with others. </h4>
