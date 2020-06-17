@@ -14,37 +14,16 @@ import Layout from './Layout/Layout';
 import UserControl from './User/UserControl';
 
 import PodControl from './Pods/PodControl';
-// import OffersList from './User/Offers/OffersList';
-
+import './scss/_app.scss';
 function App(props) {
   const auth = props.auth;
   const notSignedIt = auth.isEmpty;
-
-  const loadingBoxStyle = {
-    display: 'flex',
-    height: '100%',
-    width: '100%',
-    background:
-      'linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(255,255,255,1) 78%)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'column',
-  };
-
-  const loaderBoxStyle = {
-    height: '100vh',
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  };
 
   if (auth.isLoaded) {
     return (
       <Router>
         <Layout login={notSignedIt}>
           <Route exact path='/home' component={Home} />
-          {/* <Redirect exact from={'/'} to={'/home'} /> */}
           <Route exact path='/' component={Home} />
           <Route path='/contact' component={Contact} />
           <Route path='/login' component={Login} />
@@ -70,19 +49,19 @@ function App(props) {
       <Container>
         <Row>
           <Col md={{ span: 9, offset: 1 }}>
-            <div style={loaderBoxStyle}>
-              <Card style={{ width: '75%', height: '50%' }}>
+            <div className='loader-box-style'>
+              <Card className='loader-box-style-card'>
                 <Card.Header>
                   <Card.Title className='text-center'>
                     Victory Exchange is Loading
                   </Card.Title>
                 </Card.Header>
-                <div style={loadingBoxStyle} className='text-center'>
+                <div className='text-center style-body'>
                   <Spinner
                     animation='border'
                     role='status'
                     size='lg'
-                    className='text-center'
+                    className='text-center this-spinner'
                     variant='primary'>
                     <span className='sr-only'>Loading...</span>
                   </Spinner>

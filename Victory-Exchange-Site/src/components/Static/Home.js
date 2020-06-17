@@ -4,7 +4,7 @@ import veggieBowl from '../../img/veggieBowel.jpg';
 import HandOff from '../../img/HandOff.jpg';
 import carrotsTable from '../../img/carrotsTable.jpg';
 import VeggieOptions from '../../img/VeggieOptions.jpg';
-import './home.css';
+import '../scss/_home.scss';
 import { Row, Col, Container } from 'react-bootstrap';
 
 function Home(props) {
@@ -19,7 +19,7 @@ function Home(props) {
       </div>
       <Container>
         <Row>
-          <Col md={6} lg={{ span: 6 }} className='row1--center'>
+          <Col md={6} lg={6} className='row1--center'>
             <div className='row1--center-box'>
               <div className='center-box--top'>
                 <h4>Share what you grow with others. </h4>
