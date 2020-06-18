@@ -25,7 +25,6 @@ jobs:
 
       - name: Deploy
         uses: w9jds/firebase-action@master
-        working-directory: ./Victory-Exchange-Site
         with:
           args: deploy --only hosting
         env:
