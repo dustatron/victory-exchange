@@ -103,7 +103,7 @@ function PodItemView(props) {
                 onClick={() => {
                   props.onEditClick(1);
                 }}>
-                Edit
+                Edit Pod
               </Button>
             ) : (
               ''
