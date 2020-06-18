@@ -16,11 +16,11 @@ jobs:
         with:
           node-version: '10.x'
       - name: npm install
-        working-directory: ./Victory-Exchange-Site
+        working-directory: ./app
         run: npm install
 
       - name: npm build
-        working-directory: ./Victory-Exchange-Site
+        working-directory: ./app
         run: npm run build
 
       - name: Deploy
