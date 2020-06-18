@@ -26,7 +26,7 @@ jobs:
       - name: Deploy
         uses: w9jds/firebase-action@master
         with:
-          working-directory: ./app
           args: deploy --only hosting
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          PROJECT_PATH: ./app
