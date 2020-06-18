@@ -48,7 +48,7 @@ function ProfileDetails({ profile }) {
       <p>Bio: {bio}</p>
       <p>Hobbies: {hobbies}</p>
       <Button as={Link} to='/dashboard/profile/edit'>
-        Edit
+        Edit Profile
       </Button>
     </Fragment>
   );
