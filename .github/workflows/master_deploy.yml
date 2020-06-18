@@ -17,11 +17,11 @@ jobs:
           node-version: '10.x'
       - name: npm install
         working-directory: ./Victory-Exchange-Site
-        run: npm install Victory-Exchange-Site
+        run: npm install
 
       - name: npm build
         working-directory: ./Victory-Exchange-Site
-        run: npm run build:prod Victory-Exchange-Site
+        run: npm run build:prod
 
       - name: Deploy
         uses: w9jds/firebase-action@master
