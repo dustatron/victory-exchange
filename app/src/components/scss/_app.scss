@@ -1,0 +1,32 @@
+.loading-box-style {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.05));
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: 1px solid green;
+}
+.style-body {
+  padding: 20px;
+  margin: 50px;
+  // background: black;
+}
+
+.loader-box-style {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &-card {
+    width: 75%;
+    height: 50%;
+  }
+}
+
+.this-spinner {
+  display: block;
+  margin: 60px;
+}
