@@ -15,12 +15,17 @@ jobs:
       - uses: actions/setup-node@master
         with:
           node-version: '10.x'
-      - working-directory: ./Victory-Exchange-Site
-      - run: npm install Victory-Exchange-Site
-      - working-directory: ./Victory-Exchange-Site
-      - run: npm run build:prod Victory-Exchange-Site
-      - working-directory: ./Victory-Exchange-Site
-      - uses: w9jds/firebase-action@master
+      - name: npm install
+        working-directory: ./Victory-Exchange-Site
+        run: npm install Victory-Exchange-Site
+
+      - name: npm build
+        working-directory: ./Victory-Exchange-Site
+        run: npm run build:prod Victory-Exchange-Site
+
+      - name: Deploy
+        uses: w9jds/firebase-action@master
+        working-directory: ./Victory-Exchange-Site
         with:
           args: deploy --only hosting
         env:
