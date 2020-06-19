@@ -19,7 +19,8 @@ function App(props) {
   const auth = props.auth;
   const notSignedIt = auth.isEmpty;
 
-  if (auth.isLoaded) {
+  // if (auth.isLoaded) {
+  if (false) {
     return (
       <Router>
         <Layout login={notSignedIt}>
