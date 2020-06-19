@@ -5,7 +5,7 @@ import ImagePicker from '../../Shared/ImagePicker';
 import { Form, Card, Button } from 'react-bootstrap';
 import { useFirestore } from 'react-redux-firebase';
 import { useSelector } from 'react-redux';
-import loadingImg from '../../../img/loader.gif';
+import noImage from '../../../img/no-image.svg';
 
 function OfferCreate(props) {
   const offers = useFirestore().collection('offers');
@@ -45,7 +45,7 @@ function OfferCreate(props) {
   if (imageState.length > 1) {
     imgPreview = imageState;
   } else {
-    imgPreview = loadingImg;
+    imgPreview = noImage;
   }
 
   return (
@@ -91,7 +91,9 @@ function OfferCreate(props) {
           <Form.Group className='text-center'>
             <Card style={{ marginBottom: '10px' }}>
               <Card.Body>
-                <h5 className='text-center'> Your Image </h5>
+                <h5 className='text-center'>
+                  {imageState.length > 1 ? 'Your image' : 'Pick an image'}
+                </h5>
                 <div className='text-center'>
                   <img
                     style={{ width: '50%' }}
