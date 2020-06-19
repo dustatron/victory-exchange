@@ -5,20 +5,15 @@ import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { GlobalStyel } from '../../Layout/GlobalStyle';
 import { isLoaded } from 'react-redux-firebase';
+import '../../scss/_profile-details.scss';
 
 function ProfileDetails({ profile }) {
   const { orange } = GlobalStyel;
   const { avatarUrl, displayName, email, bio, hobbies } = profile;
 
   return (
-    <Fragment>
-      <div
-        style={{
-          background: orange,
-          minHeight: '50vh',
-          position: 'relative',
-          padding: '2rem',
-        }}>
+    <div className='profile-detail'>
+      <div className='profile-detail-top'>
         {isLoaded(avatarUrl) ? (
           <img
             src={avatarUrl}
@@ -42,15 +37,35 @@ function ProfileDetails({ profile }) {
           {displayName}
         </h1>
         <h3 style={{ color: 'white' }} className='text-center'>
-          email: {email}
+          {email}
         </h3>
       </div>
-      <p>Bio: {bio}</p>
-      <p>Hobbies: {hobbies}</p>
-      <Button as={Link} to='/dashboard/profile/edit'>
-        Edit Profile
-      </Button>
-    </Fragment>
+      {/* END TOP BOX */}
+
+      <div className='profile-detail-info'>
+        {bio && (
+          <div className='profile-detail-info-bio'>
+            <div className='profile-detail-info-title'>Bio</div>
+            <div className='profile-detail-info-details'>{bio}</div>
+          </div>
+        )}
+        {hobbies && (
+          <div className='profile-detail-info-hobbies'>
+            <div className='profile-detail-info-title'>Hobbies</div>
+            <div className='profile-detail-info-details'>{hobbies}</div>
+          </div>
+        )}
+        <div className='profile-detail-info-btn'>
+          <Button
+            className='profile-detail-btn'
+            as={Link}
+            to='/dashboard/profile/edit'
+            block>
+            Edit Profile
+          </Button>
+        </div>
+      </div>
+    </div>
   );
 }
 const mapStateToProps = (state) => ({
