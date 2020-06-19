@@ -1,0 +1,21 @@
+.profile-edit {
+  position: relative;
+  &-img-container {
+    margin: auto;
+    padding: 1rem;
+    width: 50%;
+    overflow: hidden;
+  }
+  &-img {
+    border: 5px solid white;
+    border-radius: 250%;
+    width: 100%;
+    height: auto;
+  }
+
+  &-box {
+    border: 1px solid black;
+    border-radius: 8px;
+    padding: 2rem;
+  }
+}
