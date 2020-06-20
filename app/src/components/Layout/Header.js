@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, Nav, Container } from 'react-bootstrap';
+import { connect } from 'react-redux';
 import firebase from 'firebase';
 
-function Header(props) {
-  // const navStyle = {
-  //   // background: '#FFFFFF',
-  //   height: '4rem',
-  //   boxShadow: '0px 8px 10px rgba(0, 0, 0, 0.05)'
-  // };
+function Header({ dispatch, auth }) {
+  const onClick = () => {
+    const action = { type: 'toggleView' };
+    dispatch(action);
+  };
   return (
     <Navbar
       collapseOnSelect
@@ -22,10 +22,10 @@ function Header(props) {
         <Navbar.Toggle aria-controls='responsive-navbar-nav' />
         <Navbar.Collapse id='responsive-navbar-nav'>
           <Nav className='mr-auto'>
-            <Nav.Link as={Link} to='/dashboard'>
+            <Nav.Link as={Link} to='/dashboard' onClick={onClick}>
               Dashboard
             </Nav.Link>
-            <Nav.Link as={Link} to='/findpods'>
+            <Nav.Link as={Link} to='/findpods' onClick={onClick}>
               Find Pods
             </Nav.Link>
 
@@ -42,7 +42,7 @@ function Header(props) {
               Contact Us
             </Nav.Link>
 
-            {props.auth ? (
+            {auth ? (
               <Nav.Link as={Link} to='/login'>
                 Sign in
               </Nav.Link>
@@ -60,5 +60,8 @@ function Header(props) {
     </Navbar>
   );
 }
+const mapStateToProps = (state) => ({
+  toggleDirection: state.toggleDirection,
+});
 
-export default Header;
+export default connect(mapStateToProps)(Header);

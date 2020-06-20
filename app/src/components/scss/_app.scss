@@ -30,4 +30,7 @@
   display: block;
   margin: 10% auto;
 }
-  
+.content {
+  position: relative;
+  will-change: transform, opacity;
+}

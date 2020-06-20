@@ -5,6 +5,7 @@ import ImagePicker from '../../Shared/ImagePicker';
 import { Form, Card, Button } from 'react-bootstrap';
 import { useFirestore } from 'react-redux-firebase';
 import { useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import noImage from '../../../img/no-image.svg';
 
 function OfferCreate(props) {
@@ -38,7 +39,6 @@ function OfferCreate(props) {
     console.log(newOffer);
     offers.add(newOffer);
     return history.push('/dashboard/my-offers');
-    // props.updateViewState(0);
   };
 
   let imgPreview;
@@ -78,13 +78,17 @@ function OfferCreate(props) {
           <Form.Group>
             <Form.Label>Which Pod</Form.Label>
             <Form.Control as='select' name='pod' custom>
-              {selectedPods.map((pod) => {
-                return (
-                  <option key={pod.id} value={pod.id}>
-                    {pod.title}
-                  </option>
-                );
-              })}
+              {selectedPods ? (
+                selectedPods.map((pod) => {
+                  return (
+                    <option key={pod.id} value={pod.id}>
+                      {pod.title}
+                    </option>
+                  );
+                })
+              ) : (
+                <Redirect to='/dashboard' />
+              )}
             </Form.Control>
           </Form.Group>
 

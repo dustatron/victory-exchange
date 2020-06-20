@@ -10,13 +10,14 @@ import { Link, Switch, Route, useRouteMatch } from 'react-router-dom';
 //styling
 import { Container, Row, Col } from 'react-bootstrap';
 import { MenuBox, MenuItem } from './../Layout/GlobalStyle';
+import '../scss/_user-control.scss';
 
 function UserControl() {
   // Testing nested routes
   let { path } = useRouteMatch();
 
   return (
-    <Container>
+    <Container className='user-control'>
       <div style={{ margin: '10px 0' }}>
         <Row>
           <Col md={2}>

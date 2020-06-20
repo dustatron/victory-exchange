@@ -5,6 +5,7 @@ import PodDetails from './PodDetails';
 import PodList from './PodList';
 import PodMenu from './PodMenu';
 import MyPods from './MyPods';
+import '../scss/_pod-control.scss';
 
 import { Container, Row, Col } from 'react-bootstrap';
 
@@ -32,7 +33,7 @@ function PodsList(props) {
   };
 
   return (
-    <Container>
+    <Container className='pod-control'>
       <div style={{ margin: '10px 0' }}>
         <Row>
           <Col md={2}>

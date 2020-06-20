@@ -1,0 +1,12 @@
+.page-404 {
+  margin-top: 5rem;
+  &-card {
+    height: 20rem;
+    &-body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
