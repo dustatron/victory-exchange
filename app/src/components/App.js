@@ -8,6 +8,7 @@ import Login from './Static/Login';
 import Home from './Static/Home';
 import Contact from './Static/Contact';
 import Page404 from './Static/Page404';
+import ImagePicker from './Shared/ImagePicker';
 
 import PrivateRoute from './Layout/PrivateRoute';
 import Layout from './Layout/Layout';
@@ -28,6 +29,11 @@ function App(props) {
           <Route exact path='/' component={Home} />
           <Route path='/contact' component={Contact} />
           <Route path='/login' component={Login} />
+          <Route path='/image-picker'>
+            <Container style={{ marginTop: '50px' }}>
+              <ImagePicker />
+            </Container>
+          </Route>
           {/* PRIVATE ROUTE  */}
           <PrivateRoute
             path='/dashboard'

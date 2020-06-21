@@ -1,0 +1,26 @@
+@import '_variables';
+
+.image-picker {
+  border: 1px dashed $darkGrey;
+  border-radius: $corners;
+  padding: $smallPad;
+  &-options {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    background: $darkGrey;
+    font-size: larger;
+    color: white;
+    border-radius: $corners $corners 0 0;
+
+    &-choice {
+      cursor: pointer;
+      padding: 5px 20px;
+      transition: all 0.3s ease 0s;
+      &:hover {
+        color: $green;
+        transform: scale(1.1);
+      }
+    }
+  }
+}

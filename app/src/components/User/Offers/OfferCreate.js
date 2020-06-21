@@ -59,6 +59,7 @@ function OfferCreate(props) {
           <Form.Group>
             <Form.Label>Title</Form.Label>
             <Form.Control
+              required
               type='text'
               name='title'
               placeholder='Name of your Pod.'
@@ -69,6 +70,7 @@ function OfferCreate(props) {
           <Form.Group>
             <Form.Label>Details</Form.Label>
             <Form.Control
+              required
               as='textarea'
               rows='3'
               name='details'
@@ -78,7 +80,7 @@ function OfferCreate(props) {
 
           <Form.Group>
             <Form.Label>Which Pod</Form.Label>
-            <Form.Control as='select' name='pod' custom>
+            <Form.Control as='select' name='pod' custom required>
               {selectedPods ? (
                 selectedPods.map((pod) => {
                   return (
@@ -99,21 +101,19 @@ function OfferCreate(props) {
                 <h5 className='text-center'>
                   {imageState.length > 1 ? 'Your image' : 'Pick an image'}
                 </h5>
-                <div className='text-center'>
+                <div className='text-center offer-create-img-show-box'>
                   <img
                     style={{ width: '50%' }}
                     src={imgPreview}
                     alt='preview'
                   />
                 </div>
+                <ImagePicker updateImage={setImageState} />
               </Card.Body>
             </Card>
-            <h5 className='text-center'>Search for an image</h5>
-            <Form.Label>Search for an image</Form.Label>
-            <ImagePicker updateImage={setImageState} />
           </Form.Group>
 
-          <Button variant='primary' type='submit'>
+          <Button variant='primary' type='submit' block>
             Create
           </Button>
         </Form>

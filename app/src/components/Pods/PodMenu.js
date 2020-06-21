@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { MenuBox, MenuItem } from '../Layout/GlobalStyle';
+// import { MenuItem } from '../Layout/GlobalStyle';
+import MenuBox from '../Shared/MenuBox';
+import MenuItem from '../Shared/MenuItem';
 import { Col, Row } from 'react-bootstrap';
 
 function PodMenu(props) {

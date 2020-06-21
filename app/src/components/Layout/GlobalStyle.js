@@ -7,18 +7,18 @@ export const GlobalStyel = {
   white: '#fff',
   orange: '#ffa72a',
   green: '#b2e571',
-  corners: '8px'
+  corners: '8px',
 };
 
-export const MenuBox = styled.div`
-  background-color: ${GlobalStyel.white};
-  box-shadow: ${GlobalStyel.shadow};
-  margin-top: 10px;
-  width: 100%;
-  height: auto;
-  padding: 40px 15px;
-  border-radius: ${GlobalStyel.corners};
-`;
+// export const MenuBox = styled.div`
+//   background-color: ${GlobalStyel.white};
+//   box-shadow: ${GlobalStyel.shadow};
+//   margin-top: 10px;
+//   width: 100%;
+//   height: auto;
+//   padding: 40px 15px;
+//   border-radius: ${GlobalStyel.corners};
+// `;
 // display: flex;
 // flex-direction: column;
 // justify-content: center;
@@ -39,5 +39,9 @@ export const GridLayout = styled.div`
   grid-row-gap: 0px;
 `;
 
-export const LeftMenu = styled.div`grid-area: 1 / 1 / 2 / 2;`;
-export const RightBody = styled.div`grid-area: 1 / 2 / 2 / 4;`;
+export const LeftMenu = styled.div`
+  grid-area: 1 / 1 / 2 / 2;
+`;
+export const RightBody = styled.div`
+  grid-area: 1 / 2 / 2 / 4;
+`;

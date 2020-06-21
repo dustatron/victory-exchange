@@ -1,8 +1,14 @@
-$shadow: 0px 8px 10px rgba(0, 0, 0, 0.1);
-$shadowDark: 0px 8px 10px rgba(0, 1, 1, 1);
+// Colors
 $lightGrey: #f3f5f7;
+$darkGrey: #333;
 $black: rgb(0, 0, 0);
 $white: #fff;
 $orange: #ffa72a;
 $green: #b2e571;
+
+// Settings
 $corners: 8px;
+$shadow: 0px 8px 10px rgba(0, 0, 0, 0.1);
+$shadowDark: 0px 8px 10px rgba(0, 1, 1, 1);
+$smallPad: 5px;
+$medPad: 25px;

@@ -5,6 +5,7 @@ import ProfileEdit from './Profiles/ProfileEdit';
 import MyOffers from './Offers/MyOffers';
 import OfferEdit from './Offers/OfferEdit';
 import OfferCreate from './Offers/OfferCreate';
+
 import {
   Link,
   Switch,
@@ -12,20 +13,17 @@ import {
   useRouteMatch,
   useLocation,
 } from 'react-router-dom';
-import { useTransition, animated } from 'react-spring';
 
 //styling
 import { Container, Row, Col } from 'react-bootstrap';
-import { MenuBox, MenuItem } from './../Layout/GlobalStyle';
+// import { MenuItem } from './../Layout/GlobalStyle';
+import MenuBox from '../Shared/MenuBox';
+import MenuItem from '../Shared/MenuItem';
 import '../scss/_user-control.scss';
 
 function UserControl() {
   const location = useLocation();
-  const transitions = useTransition(location, (location) => location.pathname, {
-    from: { opacity: 1, transform: 'translateY(-100%)' },
-    enter: { opacity: 1, transform: 'translateY(0%)' },
-    leave: { opacity: 1, transform: 'translateY(50%)' },
-  });
+
   // Testing nested routes
   let { path } = useRouteMatch();
 
@@ -33,7 +31,7 @@ function UserControl() {
     <Container className='user-control'>
       <div style={{ margin: '10px 0' }}>
         <Row>
-          <Col md={2}>
+          <Col lg={2}>
             <MenuBox>
               <MenuItem>
                 <Link to={`${path}`}>Offers</Link>
@@ -52,7 +50,7 @@ function UserControl() {
             </MenuBox>
           </Col>
 
-          <Col style={{ margin: '10px 0' }} md={9}>
+          <Col style={{ margin: '10px 0' }} mlg={9}>
             <Switch>
               <Route
                 exact
