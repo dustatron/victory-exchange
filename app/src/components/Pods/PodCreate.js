@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import ImagePicker from '../Shared/ImagePicker';
 import { Form, Button, Card } from 'react-bootstrap';
-import loadingImg from '../../img/loader.gif';
+
+import noImage from '../../img/no-image.svg';
+import { useHistory } from 'react-router-dom';
 
 import { useFirestore } from 'react-redux-firebase';
 import { useSelector, useDispatch } from 'react-redux';
 
 function PodCreate(props) {
+  const history = useHistory();
   const podCollection = useFirestore().collection('pods');
   const [imageState, setImageState] = useState('');
 
@@ -15,7 +18,7 @@ function PodCreate(props) {
   const currentUser = useSelector((state) => state.firebase.auth);
   const dispatch = useDispatch();
 
-  function addPodtoFirestore(event) {
+  async function addPodtoFirestore(event) {
     event.preventDefault();
     const { title, tagLine, location, description } = event.target;
 
@@ -32,21 +35,21 @@ function PodCreate(props) {
       users: [currentUser.uid],
     };
     podCollection.add(createPod);
-    dispatch({ type: 'UPDATE_SELECTED', ...createPod });
-    props.updateViewState(3);
+    await dispatch({ type: 'UPDATE_SELECTED', ...createPod });
+    history.push(`/findpods/`);
   }
 
   let imgPreview;
   if (imageState.length > 1) {
     imgPreview = imageState;
   } else {
-    imgPreview = loadingImg;
+    imgPreview = noImage;
   }
 
   return (
     <Card>
       <Card.Header>
-        <Card.Title>Pod Create</Card.Title>
+        <h4>Pod Create</h4>
       </Card.Header>
       <Card.Body>
         <Form onSubmit={addPodtoFirestore}>
@@ -124,7 +127,6 @@ function PodCreate(props) {
 }
 
 PodCreate.propTypes = {
-  updateViewState: PropTypes.func,
   updateSelectedPodState: PropTypes.func,
 };
 

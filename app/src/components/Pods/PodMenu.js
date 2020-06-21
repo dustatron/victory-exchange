@@ -6,35 +6,26 @@ import MenuBox from '../Shared/MenuBox';
 import MenuItem from '../Shared/MenuItem';
 import { Col, Row } from 'react-bootstrap';
 
+import { Link, useRouteMatch } from 'react-router-dom';
+
 function PodMenu(props) {
+  let { path } = useRouteMatch();
   return (
     <MenuBox>
       <Row>
         <Col>
-          <MenuItem
-            onClick={() => {
-              props.onMenuClick(0);
-            }}>
-            List
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              props.onMenuClick(1);
-            }}>
-            Search
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              props.onMenuClick(2);
-            }}>
-            Add
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              props.onMenuClick(4);
-            }}>
-            My Pods
-          </MenuItem>
+          <Link to={`${path}`}>
+            <MenuItem>List</MenuItem>
+          </Link>
+          <Link to={`${path}/search`}>
+            <MenuItem>Search</MenuItem>
+          </Link>
+          <Link to={`${path}/add`}>
+            <MenuItem>Add</MenuItem>
+          </Link>
+          <Link to={`${path}/my-pods`}>
+            <MenuItem>My Pods</MenuItem>
+          </Link>
         </Col>
       </Row>
     </MenuBox>

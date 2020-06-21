@@ -10,8 +10,10 @@ import {
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { useFirestore } from 'react-redux-firebase';
+import { useHistory } from 'react-router-dom';
 
 function PodItemView(props) {
+  const history = useHistory();
   const thisPod = useSelector((state) => state.selectedPod);
   const profile = useSelector((state) => state.firebase.profile);
   const currentUser = useSelector((state) => state.firebase.auth);
@@ -19,7 +21,7 @@ function PodItemView(props) {
 
   const deletePod = () => {
     firestore.delete({ collection: 'pods', doc: thisPod.podId });
-    props.withViewState(0);
+    history.push('/findpods');
   };
 
   const joinPod = () => {
@@ -29,7 +31,7 @@ function PodItemView(props) {
         { users: [...thisPod.users, currentUser.uid] }
       );
     }
-    props.withViewState(0);
+    history.push('/findpods');
   };
 
   const handleLeavePod = () => {
@@ -42,7 +44,7 @@ function PodItemView(props) {
         { collection: 'pods', doc: thisPod.podId },
         { users: [...newUserList] }
       );
-      props.withViewState(0);
+      history.push('/findpods');
     }
 
     //remove pod from users profile
@@ -129,7 +131,6 @@ function PodItemView(props) {
 
 PodItemView.propTypes = {
   onEditClick: PropTypes.func,
-  withViewState: PropTypes.func,
 };
 
 export default PodItemView;

@@ -11,21 +11,11 @@ function PodDetails(props) {
   const renderView = (view) => {
     switch (viewState) {
       case 0:
-        return (
-          <PodItemView
-            onEditClick={setViewState}
-            withViewState={props.updateViewState}
-          />
-        );
+        return <PodItemView onEditClick={setViewState} />;
       case 1:
         return <PodEdit onUpdateClick={setViewState} />;
       default:
-        return (
-          <PodItemView
-            onEditClick={setViewState}
-            withViewState={props.updateViewState}
-          />
-        );
+        return <PodItemView onEditClick={setViewState} />;
     }
   };
   return (
@@ -38,7 +28,6 @@ function PodDetails(props) {
 
 PodDetails.propTypes = {
   thisPod: PropTypes.func,
-  updateViewState: PropTypes.func,
 };
 
 export default PodDetails;

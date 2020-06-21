@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import PodListItem from './PodListItem';
+import { useHistory } from 'react-router-dom';
 
 //Style
 import styled from 'styled-components';
@@ -12,7 +13,8 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 
 function PodList(props) {
-  useFirestoreConnect([ { collection: 'pods' } ]);
+  useFirestoreConnect([{ collection: 'pods' }]);
+  const history = useHistory();
 
   const CenterItem = styled.div`
     display: flex;
@@ -21,19 +23,23 @@ function PodList(props) {
     height: 20vh;
   `;
 
-  const podsList = useSelector(state => state.firestore.ordered.pods);
+  const podsList = useSelector((state) => state.firestore.ordered.pods);
 
   const dispatch = useDispatch();
 
   const hanglePodClick = (podObject, podId) => {
-    const action = { type: 'UPDATE_SELECTED', ...podObject, ...{ podId: podId } };
+    const action = {
+      type: 'UPDATE_SELECTED',
+      ...podObject,
+      ...{ podId: podId },
+    };
     dispatch(action);
-    props.upDateViewState(3);
+    history.push(`/findpods/my-pods/${podId}`);
   };
 
   const printPods = () => {
     if (isLoaded(podsList)) {
-      return podsList.map(pod => {
+      return podsList.map((pod) => {
         return <PodListItem pod={pod} onPodClick={hanglePodClick} />;
       });
     } else {
@@ -47,16 +53,15 @@ function PodList(props) {
 
   return (
     <Card>
-      <Card.Body>
+      <Card.Header>
         <h4> Pod List</h4>
-        {printPods()}
-      </Card.Body>
+      </Card.Header>
+      <Card.Body>{printPods()}</Card.Body>
     </Card>
   );
 }
 
 PodList.propTypes = {
   onPodClick: PropTypes.func,
-  upDateViewState: PropTypes.func
 };
 export default PodList;

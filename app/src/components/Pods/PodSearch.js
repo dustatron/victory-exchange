@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import PodListItem from './PodListItem';
 
@@ -7,23 +8,33 @@ import { Card, InputGroup, FormControl, Form, Button } from 'react-bootstrap';
 
 function PodSearch(props) {
   const dispatch = useDispatch();
-  const [ inputState, setInputState ] = useState('');
-  const [ searchResults, setSearchResults ] = useState([]);
-  const allPods = useSelector(state => state.firestore.data.pods);
+  const history = useHistory();
 
-  const handleSubmit = event => {
+  const [inputState, setInputState] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+
+  const allPods = useSelector((state) => state.firestore.data.pods);
+
+  const handleSubmit = (event) => {
     event.preventDefault();
-    const search = Object.entries(allPods).filter(pod => {
-      return pod[1].title.toLowerCase().includes(inputState.toLowerCase()) || pod[1].location.toLowerCase().includes(inputState.toLowerCase());
+    const search = Object.entries(allPods).filter((pod) => {
+      return (
+        pod[1].title.toLowerCase().includes(inputState.toLowerCase()) ||
+        pod[1].location.toLowerCase().includes(inputState.toLowerCase())
+      );
     });
     setSearchResults(search);
   };
 
   const hanglePodClick = (podObject, podId) => {
-    const action = { type: 'UPDATE_SELECTED', ...podObject, ...{ podId: podId } };
+    const action = {
+      type: 'UPDATE_SELECTED',
+      ...podObject,
+      ...{ podId: podId },
+    };
     dispatch(action);
     console.log(action);
-    props.updateViewState(3);
+    history.push(`/findpods/my-pods/${podId}`);
   };
 
   return (
@@ -37,7 +48,7 @@ function PodSearch(props) {
               </Button>
             </InputGroup.Prepend>
             <FormControl
-              onChange={event => {
+              onChange={(event) => {
                 setInputState(event.target.value);
               }}
             />
@@ -45,7 +56,7 @@ function PodSearch(props) {
         </Form>
       </Card.Header>
       <Card.Body>
-        {searchResults.map(pod => {
+        {searchResults.map((pod) => {
           return (
             <PodListItem
               pod={pod[1]}

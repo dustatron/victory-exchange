@@ -8,29 +8,20 @@ import MyPods from './MyPods';
 import '../scss/_pod-control.scss';
 
 import { Container, Row, Col } from 'react-bootstrap';
+import {
+  Link,
+  Switch,
+  Route,
+  useRouteMatch,
+  useLocation,
+} from 'react-router-dom';
 
 function PodsList(props) {
+  let { path } = useRouteMatch();
   //////////////////// Click Handlers ////////////////////////
 
   const [viewState, setViewState] = useState(0);
   // const [ selectedPodState, setSelectedPodState ] = useState({}); // retire
-
-  const renderView = (view) => {
-    switch (view) {
-      case 0:
-        return <PodList upDateViewState={setViewState} />;
-      case 1:
-        return <PodSearch updateViewState={setViewState} />;
-      case 2:
-        return <PodCreate updateViewState={setViewState} />;
-      case 3:
-        return <PodDetails updateViewState={setViewState} />;
-      case 4:
-        return <MyPods updateViewState={setViewState} />;
-      default:
-        return <PodList updateViewState={setViewState} />;
-    }
-  };
 
   return (
     <Container className='pod-control'>
@@ -40,7 +31,23 @@ function PodsList(props) {
             <PodMenu onMenuClick={setViewState} />
           </Col>
           <Col style={{ margin: '10px 0' }} md={9}>
-            {renderView(viewState)}
+            <Switch>
+              <Route exact path={`${path}`}>
+                <PodList />
+              </Route>
+              <Route exact path={`${path}/search`}>
+                <PodSearch />
+              </Route>
+              <Route exact path={`${path}/add`}>
+                <PodCreate />
+              </Route>
+              <Route exact path={`${path}/my-pods`}>
+                <MyPods />
+              </Route>
+              <Route exact path={`${path}/my-pods/:id`}>
+                <PodDetails />
+              </Route>
+            </Switch>
           </Col>
         </Row>
       </div>

@@ -16,7 +16,6 @@ import {
 
 //styling
 import { Container, Row, Col } from 'react-bootstrap';
-// import { MenuItem } from './../Layout/GlobalStyle';
 import MenuBox from '../Shared/MenuBox';
 import MenuItem from '../Shared/MenuItem';
 import '../scss/_user-control.scss';
@@ -33,24 +32,22 @@ function UserControl() {
         <Row>
           <Col lg={2}>
             <MenuBox>
-              <MenuItem>
-                <Link to={`${path}`}>Offers</Link>
-              </MenuItem>
-              <MenuItem>
-                <Link to={`${path}/make-offer`}>Make Offer</Link>
-              </MenuItem>
-
-              <MenuItem>
-                <Link to={`${path}/my-offers`}>Your Offers</Link>
-              </MenuItem>
-
-              <MenuItem>
-                <Link to={`${path}/profile`}> Profile </Link>
-              </MenuItem>
+              <Link to={`${path}`}>
+                <MenuItem>Offers</MenuItem>
+              </Link>
+              <Link to={`${path}/make-offer`}>
+                <MenuItem>Make Offer</MenuItem>
+              </Link>
+              <Link to={`${path}/my-offers`}>
+                <MenuItem>Your Offers</MenuItem>
+              </Link>
+              <Link to={`${path}/profile`}>
+                <MenuItem>Profile</MenuItem>
+              </Link>
             </MenuBox>
           </Col>
 
-          <Col style={{ margin: '10px 0' }} mlg={9}>
+          <Col style={{ margin: '10px 0' }} mlg={10}>
             <Switch>
               <Route
                 exact
