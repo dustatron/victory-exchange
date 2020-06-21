@@ -7,6 +7,7 @@ import { useFirestore } from 'react-redux-firebase';
 import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import noImage from '../../../img/no-image.svg';
+import '../../scss/_offer-create.scss';
 
 function OfferCreate(props) {
   const offers = useFirestore().collection('offers');
@@ -49,7 +50,7 @@ function OfferCreate(props) {
   }
 
   return (
-    <Card>
+    <Card className='offer-create'>
       <Card.Header>
         <Card.Title>New Offer</Card.Title>
       </Card.Header>

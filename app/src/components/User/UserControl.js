@@ -5,7 +5,14 @@ import ProfileEdit from './Profiles/ProfileEdit';
 import MyOffers from './Offers/MyOffers';
 import OfferEdit from './Offers/OfferEdit';
 import OfferCreate from './Offers/OfferCreate';
-import { Link, Switch, Route, useRouteMatch } from 'react-router-dom';
+import {
+  Link,
+  Switch,
+  Route,
+  useRouteMatch,
+  useLocation,
+} from 'react-router-dom';
+import { useTransition, animated } from 'react-spring';
 
 //styling
 import { Container, Row, Col } from 'react-bootstrap';
@@ -13,6 +20,12 @@ import { MenuBox, MenuItem } from './../Layout/GlobalStyle';
 import '../scss/_user-control.scss';
 
 function UserControl() {
+  const location = useLocation();
+  const transitions = useTransition(location, (location) => location.pathname, {
+    from: { opacity: 1, transform: 'translateY(-100%)' },
+    enter: { opacity: 1, transform: 'translateY(0%)' },
+    leave: { opacity: 1, transform: 'translateY(50%)' },
+  });
   // Testing nested routes
   let { path } = useRouteMatch();
 

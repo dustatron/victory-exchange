@@ -1,8 +1,7 @@
 import React from 'react';
-import { Switch, Route, useLocation } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Card, Spinner, Container, Row, Col } from 'react-bootstrap';
-import { useTransition, animated } from 'react-spring';
 
 //Static Routes
 import Login from './Static/Login';
@@ -18,58 +17,32 @@ import PodControl from './Pods/PodControl';
 import './scss/_app.scss';
 
 function App(props) {
-  const location = useLocation();
-  let transitionData = {
-    from: '',
-    to: '',
-    leave: '',
-  };
-  if (props.toggleDirection) {
-    transitionData = {
-      from: 'translateX(100%)',
-      enter: 'translateX(0)',
-      leave: 'translateX(-50%)',
-    };
-  } else {
-    transitionData = {
-      from: 'translateX(-100%)',
-      enter: 'translateX(0)',
-      leave: 'translateX(50%)',
-    };
-  }
-  const transitions = useTransition(location, (location) => location.pathname, {
-    from: { opacity: 1, transform: transitionData.from },
-    enter: { opacity: 1, transform: transitionData.enter },
-    leave: { opacity: 1, transform: transitionData.leave },
-  });
   const auth = props.auth;
   const notSignedIt = auth.isEmpty;
 
   if (auth.isLoaded) {
-    return transitions.map(({ item: location, props, key }) => (
+    return (
       <Layout login={notSignedIt}>
-        <animated.div key={key} style={props} className='content'>
-          <Switch location={location}>
-            <Route exact path='/home' component={Home} />
-            <Route exact path='/' component={Home} />
-            <Route path='/contact' component={Contact} />
-            <Route path='/login' component={Login} />
-            {/* PRIVATE ROUTE  */}
-            <PrivateRoute
-              path='/dashboard'
-              authenticated={notSignedIt}
-              component={Page404}
-            />
-            <PrivateRoute
-              path='/findpods'
-              authenticated={notSignedIt}
-              component={PodControl}
-            />
-            <Route component={Page404} />
-          </Switch>
-        </animated.div>
+        <Switch>
+          <Route exact path='/home' component={Home} />
+          <Route exact path='/' component={Home} />
+          <Route path='/contact' component={Contact} />
+          <Route path='/login' component={Login} />
+          {/* PRIVATE ROUTE  */}
+          <PrivateRoute
+            path='/dashboard'
+            authenticated={notSignedIt}
+            component={UserControl}
+          />
+          <PrivateRoute
+            path='/findpods'
+            authenticated={notSignedIt}
+            component={PodControl}
+          />
+          <Route component={Page404} />
+        </Switch>
       </Layout>
-    ));
+    );
   } else {
     return (
       /////////////  LOADING SPINNER WAITING ON FIREBASE AUTH ///////////////

@@ -4,20 +4,35 @@ import OfferItem from './OfferItem';
 import { useFirestoreConnect, isLoaded } from 'react-redux-firebase';
 import { useSelector } from 'react-redux';
 import { Card } from 'react-bootstrap';
+import '../../scss/_my-offers.scss';
 
 function OffersMadeByUser(props) {
-  const currentUser = useSelector(state => state.firebase.auth);
+  const currentUser = useSelector((state) => state.firebase.auth);
 
-  useFirestoreConnect([ { collection: 'offers', where: [ 'authorId', '==', currentUser.uid ], storeAs: 'currentUsersOffers' } ]);
-  const currentUsersOffers = useSelector(state => state.firestore.ordered.currentUsersOffers);
+  useFirestoreConnect([
+    {
+      collection: 'offers',
+      where: ['authorId', '==', currentUser.uid],
+      storeAs: 'currentUsersOffers',
+    },
+  ]);
+  const currentUsersOffers = useSelector(
+    (state) => state.firestore.ordered.currentUsersOffers
+  );
 
   let renderOffers;
   if (isLoaded(currentUsersOffers)) {
-    renderOffers = currentUsersOffers.map(offer => <OfferItem offer={offer} key={offer.id} onUpdateViewState={props.updateViewState} />);
+    renderOffers = currentUsersOffers.map((offer) => (
+      <OfferItem
+        offer={offer}
+        key={offer.id}
+        onUpdateViewState={props.updateViewState}
+      />
+    ));
   }
 
   return (
-    <Card>
+    <Card className='my-offer'>
       <Card.Body>
         <h2> Your Offers </h2>
         <hr />
@@ -28,7 +43,7 @@ function OffersMadeByUser(props) {
 }
 
 OffersMadeByUser.propTypes = {
-  updateViewState: PropTypes.func
+  updateViewState: PropTypes.func,
 };
 
 export default OffersMadeByUser;
