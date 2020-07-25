@@ -30,6 +30,7 @@ function MyPods(props) {
       const myPods = allPods.filter((pod) => pod.ownerId === currentUser.uid);
       setMyPodsState(myPods);
     }
+    // eslint-disable-next-line
   }, [currentUser.uid, myPodsState.length, allPods]);
 
   return (

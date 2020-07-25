@@ -1,14 +1,12 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { GlobalStyel } from '../../Layout/GlobalStyle';
 import { isLoaded } from 'react-redux-firebase';
 import '../../scss/_profile-details.scss';
 
 function ProfileDetails({ profile }) {
-  const { orange } = GlobalStyel;
   const { avatarUrl, displayName, email, bio, hobbies } = profile;
 
   return (

@@ -15,8 +15,9 @@ const ImageSearch = ({
   const [renderData, setRenderData] = useState([]);
 
   useEffect(() => {
-    cleanResults();
+    cleanResults(number);
     setInputData('');
+    // eslint-disable-next-line
   }, [results]);
 
   const onSubmit = () => {
@@ -26,19 +27,21 @@ const ImageSearch = ({
     setInputData(e.target.value);
   };
 
-  const cleanResults = () => {
-    switch (number) {
+  const cleanResults = (value) => {
+    switch (value) {
       // Image Search
       case 1:
         const gifs = results[0].map((result) => ({
           id: result.id,
           number: number,
           url: result.images.fixed_height.url,
+          description: 'gif',
         }));
         const stills = results[1].map((result) => ({
           id: result.id,
           number: number,
-          url: result.largeImageURL,
+          url: result.urls.thumb,
+          description: result.description,
         }));
         return setRenderData([...stills, ...gifs]);
       // File Upload
@@ -94,7 +97,7 @@ const ImageSearch = ({
                 onClick={() => {
                   onImageClick(result.url);
                 }}>
-                <img src={result.url} />
+                <img src={result.url} alt={result.description} />
               </div>
             );
           })}

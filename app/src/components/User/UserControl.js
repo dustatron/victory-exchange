@@ -6,13 +6,7 @@ import MyOffers from './Offers/MyOffers';
 import OfferEdit from './Offers/OfferEdit';
 import OfferCreate from './Offers/OfferCreate';
 
-import {
-  Link,
-  Switch,
-  Route,
-  useRouteMatch,
-  useLocation,
-} from 'react-router-dom';
+import { Link, Switch, Route, useRouteMatch } from 'react-router-dom';
 
 //styling
 import { Container, Row, Col } from 'react-bootstrap';
@@ -21,7 +15,7 @@ import MenuItem from '../Shared/MenuItem';
 import '../scss/_user-control.scss';
 
 function UserControl() {
-  const location = useLocation();
+  // const location = useLocation();
 
   // Testing nested routes
   let { path } = useRouteMatch();

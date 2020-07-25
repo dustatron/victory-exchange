@@ -8,19 +8,13 @@ import MyPods from './MyPods';
 import '../scss/_pod-control.scss';
 
 import { Container, Row, Col } from 'react-bootstrap';
-import {
-  Link,
-  Switch,
-  Route,
-  useRouteMatch,
-  useLocation,
-} from 'react-router-dom';
+import { Switch, Route, useRouteMatch } from 'react-router-dom';
 
 function PodsList(props) {
   let { path } = useRouteMatch();
   //////////////////// Click Handlers ////////////////////////
 
-  const [viewState, setViewState] = useState(0);
+  const [setViewState] = useState(0);
   // const [ selectedPodState, setSelectedPodState ] = useState({}); // retire
 
   return (

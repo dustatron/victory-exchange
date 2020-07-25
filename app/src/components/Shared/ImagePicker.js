@@ -53,15 +53,24 @@ function ImagePicker(props) {
       // Gifgy
       case 1:
         const giffyResult = await axios(
-          `https://api.giphy.com/v1/stickers/search?api_key=${process.env.REACT_APP_GIPHY_API}&q=${searchTerm}&limit=6&offset=10&rating=G&lang=en`
+          `https://api.giphy.com/v1/stickers/search?api_key=${process.env.REACT_APP_GIPHY_API}&q=${searchTerm}&limit=16&rating=G&lang=en`
         );
-        const stillImageResult = await axios(
-          `https://pixabay.com/api/?key=${process.env.REACT_APP_PIXABAY}&q=${searchTerm}&image_type=photo&orientation=horizontal&per_page=6`
+        // const stillImageResult = await axios(
+        //   `https://pixabay.com/api/?key=${process.env.REACT_APP_PIXABAY}&q=${searchTerm}&image_type=photo&orientation=horizontal&per_page=6`
+        // );
+        const Unsplash = await axios(
+          `https://api.unsplash.com/search/photos?per_page=16&orientation=squarish&query=${searchTerm}`,
+          {
+            headers: {
+              Authorization: `Client-ID ${process.env.REACT_APP_UNSPLASH}`,
+            },
+          }
         );
 
         return setSearchResults([
           [...giffyResult.data.data],
-          [...stillImageResult.data.hits],
+          [...Unsplash.data.results],
+          // [...stillImageResult.data.hits],
         ]);
       case 2:
         return setSearchResults(['coming soon...', searchTerm]);
