@@ -1,17 +1,26 @@
 @import './variables';
+@import './mixins';
+
 .menu-item {
   width: 100%;
   height: 2rem;
   padding: 25px 5px;
   margin-top: $smallPad;
   font-size: 1em;
-  font-weight: 700;
+  font-weight: 600;
   text-align: left;
-  border-bottom: 1px solid $darkGrey;
+  border-bottom: 2px solid $darkGrey;
   transition: all 0.2s ease 0s;
-
+  @include respond(tab-port) {
+    width: auto;
+    border-bottom: none;
+    padding: 0;
+    margin: 5px;
+    padding: 3px;
+  }
   &:hover {
-    border-bottom: 2px solid $black;
-    transform: scale(1.03);
+    font-size: 1.2em;
+    font-weight: 900;
+    z-index: 9999;
   }
 }

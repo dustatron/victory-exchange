@@ -11,9 +11,9 @@ import { Link, useRouteMatch } from 'react-router-dom';
 function PodMenu(props) {
   let { path } = useRouteMatch();
   return (
-    <MenuBox>
-      <Row>
-        <Col>
+    <Row>
+      <Col>
+        <MenuBox>
           <Link to={`${path}`}>
             <MenuItem>List</MenuItem>
           </Link>
@@ -26,9 +26,9 @@ function PodMenu(props) {
           <Link to={`${path}/my-pods`}>
             <MenuItem>My Pods</MenuItem>
           </Link>
-        </Col>
-      </Row>
-    </MenuBox>
+        </MenuBox>
+      </Col>
+    </Row>
   );
 }
 
