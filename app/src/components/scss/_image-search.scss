@@ -1,7 +1,13 @@
 @import '_variables';
+@import '_mixins';
+
 .image-search {
   padding: $medPad;
   background: $white;
+  min-height: 470px;
+  @include respond(tab-port) {
+    padding: 10px;
+  }
 }
 .image-box {
   display: flex;
@@ -12,6 +18,9 @@
     margin: $smallPad;
     position: relative;
     img {
+      width: 100%;
+    }
+    @include respond(tab-port) {
       width: 100%;
     }
   }

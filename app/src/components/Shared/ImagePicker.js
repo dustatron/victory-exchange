@@ -2,15 +2,16 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import ImageSearch from './ImageSearch';
+import ImageUpload from './ImageUpload';
 import '../scss/_image-picker.scss';
 
 function ImagePicker(props) {
   // New State
   const [searchResultData, setSearchResults] = useState([[], []]);
   const [viewData, setViewData] = useState({
-    number: 1,
-    searchType: 'Image Search',
-    placerHolder: 'Search For Image Options... ',
+    number: 2,
+    searchType: 'Upload',
+    placerHolder: 'Upload an Still Image...  ',
   });
   const { number, searchType, placerHolder } = viewData;
 
@@ -88,16 +89,16 @@ function ImagePicker(props) {
         <div
           className='image-picker-options-choice'
           onClick={() => {
-            onPick(1);
+            onPick(2);
           }}>
-          Image Search
+          Upload
         </div>
         <div
           className='image-picker-options-choice'
           onClick={() => {
-            onPick(2);
+            onPick(1);
           }}>
-          Upload
+          Image Search
         </div>
         <div
           className='image-picker-options-choice'
@@ -108,14 +109,18 @@ function ImagePicker(props) {
         </div>
       </div>
       <div className='image-picker-show-search'>
-        <ImageSearch
-          number={number}
-          searchType={searchType}
-          handleSearch={onSearch}
-          results={searchResultData}
-          onImageClick={handleImageClick}
-          placerHolder={placerHolder}
-        />
+        {viewData.number === 2 ? (
+          <ImageUpload onImage={handleImageClick} />
+        ) : (
+          <ImageSearch
+            number={number}
+            searchType={searchType}
+            handleSearch={onSearch}
+            results={searchResultData}
+            onImageClick={handleImageClick}
+            placerHolder={placerHolder}
+          />
+        )}
       </div>
     </div>
   );
