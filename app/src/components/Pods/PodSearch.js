@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import PodListItem from './PodListItem';
-
 import { Card, InputGroup, FormControl, Form, Button } from 'react-bootstrap';
+import '../scss/_pod-search.scss';
 
 function PodSearch(props) {
   const dispatch = useDispatch();
@@ -14,7 +14,6 @@ function PodSearch(props) {
   const [searchResults, setSearchResults] = useState([]);
 
   const allPods = useSelector((state) => state.firestore.data.pods);
-
   const handleSubmit = (event) => {
     event.preventDefault();
     const search = Object.entries(allPods).filter((pod) => {
@@ -38,7 +37,7 @@ function PodSearch(props) {
   };
 
   return (
-    <Card>
+    <Card className='pod-search'>
       <Card.Header>
         <Form onSubmit={handleSubmit}>
           <InputGroup>

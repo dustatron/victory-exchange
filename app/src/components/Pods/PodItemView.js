@@ -74,10 +74,18 @@ function PodItemView(props) {
           </Col>
           <Col md={6}>
             <ListGroup className='list-group-flush'>
-              <ListGroupItem>Description: {thisPod.description}</ListGroupItem>
-              <ListGroupItem>Location: {thisPod.location}</ListGroupItem>
-              <ListGroupItem>Created By: {thisPod.ownerName}</ListGroupItem>
-              <ListGroupItem>Users: {thisPod.users.length}</ListGroupItem>
+              <ListGroupItem>
+                Description: { thisPod.description}
+              </ListGroupItem>
+              <ListGroupItem>
+                Location: {thisPod.location}
+              </ListGroupItem>
+              <ListGroupItem>
+                Created By: {thisPod.ownerName}
+              </ListGroupItem>
+              <ListGroupItem>
+                Users: {thisPod.users.length}
+              </ListGroupItem>
               <ListGroupItem>
                 Created on: {new Date(thisPod.createdAt).toLocaleDateString()}
               </ListGroupItem>
@@ -87,7 +95,7 @@ function PodItemView(props) {
         <Row>
           <Col md={{ span: 8, offset: 2 }} className='text-center'>
             {/* ///////////////  Join Or Leave /////////////////// */}
-            {thisPod.users.includes(currentUser.uid) ? (
+            {thisPod.users && thisPod.users.includes(currentUser.uid) ? (
               <Button style={{ margin: '0 5px' }} onClick={handleLeavePod}>
                 {currentUser.uid === thisPod.ownerId ? 'Admin' : 'Leave Pod'}
               </Button>

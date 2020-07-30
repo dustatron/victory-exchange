@@ -1,0 +1,49 @@
+.about {
+  margin-bottom: 100px;
+  h1 {
+    text-align: center;
+    margin: 100px 0;
+  }
+  h2 {
+    margin: 50px 0;
+  }
+  h3 {
+    margin: 50px 0;
+    font-weight: 100;
+  }
+
+  &-ladies-img {
+    width: 90%;
+    overflow: hidden;
+    img {
+      margin-left: -120px;
+      width: 140%;
+    }
+  }
+
+  &-bar {
+    margin: 25px;
+    height: 2px;
+    width: 100%;
+    background: grey;
+    opacity: 20%;
+  }
+
+  &-dusty {
+    text-align: center;
+    &-img {
+      width: 80%;
+      margin: 20px auto;
+
+      text-align: center;
+      img {
+        width: 100%;
+      }
+    }
+    &-link {
+      &-btn {
+        width: 60%;
+      }
+    }
+  }
+}

@@ -38,8 +38,8 @@ function Header({ dispatch, auth }) {
           </NavDropdown> */}
           </Nav>
           <Nav>
-            <Nav.Link as={Link} to='/contact'>
-              Contact Us
+            <Nav.Link as={Link} to='/about'>
+              About
             </Nav.Link>
 
             {auth ? (

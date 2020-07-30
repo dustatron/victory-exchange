@@ -96,6 +96,7 @@ const ImageSearch = ({
                 key={result.id}
                 onClick={() => {
                   onImageClick(result.url);
+                  setRenderData([]);
                 }}>
                 <img src={result.url} alt={result.description} />
               </div>

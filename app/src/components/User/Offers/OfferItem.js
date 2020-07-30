@@ -2,9 +2,13 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import OfferReplies from './OfferReplies';
 import MakeReply from './MakeReply';
-import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
+
+// Data
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useFirestoreConnect, isLoaded } from 'react-redux-firebase';
 
 import { v4 } from 'uuid';
 import { Card, Row, Col, ListGroup, Button } from 'react-bootstrap';
@@ -13,9 +17,12 @@ import { GlobalStyel } from '../../Layout/GlobalStyle';
 import { updateSelectedOffer } from '../../../actions/offer-actions';
 
 function OfferItem({ offer, updateSelectedOffer }) {
-  // const dispatch = useDispatch();
-  const history = useHistory();
+  useFirestoreConnect([{ collection: 'pods' }]);
+  const podsList = useSelector((state) => state.firestore.ordered.pods);
   const user = useSelector((state) => state.firebase.auth);
+
+  const dispatch = useDispatch();
+  const history = useHistory();
   const [showReply, setShowReply] = useState(false);
 
   const Spacer = styled.div`
@@ -23,16 +30,22 @@ function OfferItem({ offer, updateSelectedOffer }) {
     box-shadow: ${GlobalStyel.shadow};
   `;
   const handleEditButton = () => {
-    // const action = {
-    //   type: 'UPDATE_SELECT_OFFER',
-    //   ...offer,
-    //   ...{ offerId: offer.id },
-    // };
+
     updateSelectedOffer(offer, offer.id);
-    // dispatch(action);
     return history.push('/dashboard/edit');
-    // props.onUpdateViewState(4);
   };
+
+  const handlePodClick = (id) => {
+    const podObject = podsList.filter(pod => pod.podId === id)
+    console.log('pod', podObject)
+     const action = {
+       type: 'UPDATE_SELECTED',
+       ...podObject[0],
+       ...{ podId: id },
+     };
+     dispatch(action);
+     history.push(`/dashboard/pod-details/${id}`);
+  }
 
   let renderEditButton;
   let status = () => {
@@ -85,10 +98,16 @@ function OfferItem({ offer, updateSelectedOffer }) {
               md={{ span: 10, offset: 1 }}
               style={{ margin: '10px auto' }}>
               <ListGroup horizontal={'lg'}>
-                <ListGroup.Item>Pod : {offer.podName}</ListGroup.Item>
+                <ListGroup.Item style={{cursor: 'pointer'}}
+                  onClick={() => {
+                    handlePodClick(offer.podId);
+                  }}>
+                  Pod : {offer.podName}
+                </ListGroup.Item>
                 <ListGroup.Item>
                   Posted on : {new Date(offer.createdAt).toLocaleDateString()}
                 </ListGroup.Item>
+                <ListGroup.Item>Posted by : {offer.authorName}</ListGroup.Item>
                 <ListGroup.Item>{status()}</ListGroup.Item>
                 <ListGroup.Item>
                   <Button

@@ -18,6 +18,7 @@ function ImagePicker(props) {
   const handleImageClick = (link) => {
     // alert(link);
     props.updateImage(link);
+    
   };
 
   const onPick = (pick) => {

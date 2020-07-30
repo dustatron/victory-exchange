@@ -5,6 +5,7 @@ import ProfileEdit from './Profiles/ProfileEdit';
 import MyOffers from './Offers/MyOffers';
 import OfferEdit from './Offers/OfferEdit';
 import OfferCreate from './Offers/OfferCreate';
+import PodDetails from '../Pods/PodDetails';
 
 import { Link, Switch, Route, useRouteMatch } from 'react-router-dom';
 
@@ -62,6 +63,9 @@ function UserControl() {
               </Route>
               <Route exact path={`${path}/profile/edit`}>
                 <ProfileEdit />
+              </Route>
+              <Route exact path={`${path}/pod-details/:id`}>
+                <PodDetails />
               </Route>
             </Switch>
             {/* {renderView(viewState)} */}

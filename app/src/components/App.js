@@ -6,7 +6,7 @@ import { Card, Spinner, Container, Row, Col } from 'react-bootstrap';
 //Static Routes
 import Login from './Static/Login';
 import Home from './Static/Home';
-import Contact from './Static/Contact';
+import About from './Static/About';
 import Page404 from './Static/Page404';
 import ImagePicker from './Shared/ImagePicker';
 import Test from '../components/Test';
@@ -28,7 +28,7 @@ function App(props) {
         <Switch>
           <Route exact path='/home' component={Home} />
           <Route exact path='/' component={Home} />
-          <Route path='/contact' component={Contact} />
+          <Route path='/about' component={About} />
           <Route path='/login' component={Login} />
           <Route path='/test' component={Test} />
 
